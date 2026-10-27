@@ -9,7 +9,12 @@
   if (root.dataset.loader === "0") { el.remove(); root.classList.remove("is-loading"); return; }
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const MIN_MS = reduceMotion ? 300 : 2400;   // time to reach 100% at the earliest
+  // Some versions have a longer drawn intro and a staged exit: give them more
+  // minimum on-screen time and keep the element until their exit has played.
+  const v = root.dataset.loader;
+  const INTRO_MS = { 9: 3600, 10: 3300 };
+  const EXIT_MS = { 9: 2000, 10: 1900 };
+  const MIN_MS = reduceMotion ? 300 : (INTRO_MS[v] || 2400);   // time to reach 100% at the earliest
   const MAX_MS = 8000;                        // never block longer than this
   const pctEls = el.querySelectorAll("[data-pct]");
   const start = performance.now();
@@ -42,7 +47,7 @@
     root.classList.remove("is-loading");
     // Scroll-reveal positions were measured with scrolling locked; refresh them.
     window.ScrollTrigger && window.ScrollTrigger.refresh();
-    setTimeout(() => el.remove(), 1400);
+    setTimeout(() => el.remove(), EXIT_MS[v] || 1400);
   }
 
   render();
