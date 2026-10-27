@@ -1,0 +1,130 @@
+/* ---------- Advisory Board carousel (Swiper) ----------
+   Phones 1.5 cards, tablets 2.5, small desktop 3.3, desktop 4. Below 1280px
+   the track bleeds to the right edge of the screen so the next card peeks in. */
+.sg-team__swiper { overflow: hidden; }
+@media (max-width: 1279px) {
+  .sg-team__swiper { margin-right: -24px; padding-right: 24px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .sg-team__swiper { margin-right: -48px; padding-right: 48px; }
+}
+.sg-team .swiper-slide { height: auto; }
+/* Until Swiper initialises, lay cards out in a scrollable row instead of a stack */
+.sg-team__swiper:not(.swiper-initialized) .swiper-wrapper { display: flex; gap: 16px; overflow-x: auto; }
+.sg-team__swiper:not(.swiper-initialized) .swiper-slide { flex: 0 0 66%; }
+
+.sg-team__controls {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.sg-team__progress {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.sg-team__progress-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform: scaleX(0.25);
+  background: linear-gradient(90deg, #ff8a00, #ffb100, #ffd698);
+  box-shadow: 0 0 10px rgba(255, 177, 0, 0.8);
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-team__nav { display: flex; gap: 10px; }
+.sg-team__btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(17, 17, 17, 0.6);
+  cursor: pointer;
+  transition: color 0.35s ease, border-color 0.35s ease, opacity 0.3s ease;
+}
+.sg-team__btn::before {
+  /* amber fill that grows from the centre on hover */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: #ffb100;
+  transform: scale(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-team__btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-team__btn:hover { color: #000; border-color: #ffb100; }
+.sg-team__btn:hover::before { transform: scale(1); }
+.sg-team__btn--prev:hover svg { transform: translateX(-3px); }
+.sg-team__btn--next:hover svg { transform: translateX(3px); }
+.sg-team__btn:focus-visible { outline: 2px solid #ffd698; outline-offset: 3px; }
+.sg-team__btn.is-disabled { opacity: 0.3; pointer-events: none; }
+
+@media (max-width: 639px) {
+  .sg-team__controls { margin-top: 24px; gap: 16px; }
+  .sg-team__btn { width: 44px; height: 44px; }
+}
+
+/* ---------- Mobile / tablet rhythm ---------- */
+/* Section spacing: 112–144px suits desktop but feels empty on small screens */
+@media (max-width: 639px) {
+  #about, #advisory, #technology, #partners, #contact { padding-top: 72px; padding-bottom: 72px; }
+  .sg-foot > div:first-child { padding-top: 64px; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  #about, #advisory, #technology, #partners, #contact { padding-top: 96px; padding-bottom: 96px; }
+}
+
+/* Hero map: keep it a comfortable size when it stacks under the text */
+@media (max-width: 1023px) {
+  .sg-map { max-width: 460px; }
+  #hero-content { row-gap: 40px; }
+}
+.sg-map__caption .sg-map__chip { white-space: nowrap; }
+@media (max-width: 639px) {
+  .sg-map__chip { padding: 6px 12px; font-size: 11px; }
+}
+
+/* ---------- Review bar: collapsed pill on phones and tablets ---------- */
+.sg-fontswitch__toggle { display: none; }
+@media (max-width: 1023px) {
+  .sg-fontswitch__toggle {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #000;
+    background: #ffb100;
+  }
+  .sg-fontswitch:not(.is-open) > :not(.sg-fontswitch__toggle) { display: none; }
+  .sg-fontswitch:not(.is-open) { padding: 4px; }
+}
+/* Small laptops: the map column is narrow, so the label takes its own line there too */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .sg-map__caption > span:first-child { flex-basis: 100%; }
+}

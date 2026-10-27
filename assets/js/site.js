@@ -35,6 +35,54 @@
     window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => { if (e.matches) setOpen(false); });
   }
 
+  // ---------- Advisory Board carousel ----------
+  const teamEl = document.querySelector(".sg-team__swiper");
+  if (teamEl && window.Swiper) {
+    const fill = document.querySelector(".sg-team__progress-fill");
+    // Progress bar shows the visible share of the row, growing to full at the end.
+    const updateFill = (sw) => {
+      if (!fill) return;
+      const perView = sw.params.slidesPerView === "auto" ? 1 : sw.params.slidesPerView;
+      const visible = Math.min(perView / sw.slides.length, 1);
+      fill.style.transform = `scaleX(${visible + (1 - visible) * Math.max(0, Math.min(1, sw.progress))})`;
+    };
+    new window.Swiper(teamEl, {
+      slidesPerView: 1.5,
+      spaceBetween: 14,
+      speed: 700,
+      grabCursor: true,
+      watchOverflow: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      a11y: { enabled: true },
+      navigation: {
+        prevEl: ".sg-team__btn--prev",
+        nextEl: ".sg-team__btn--next",
+        disabledClass: "is-disabled",
+      },
+      breakpoints: {
+        640: { slidesPerView: 2.5, spaceBetween: 18 },
+        1024: { slidesPerView: 3.3, spaceBetween: 22 },
+        1280: { slidesPerView: 4, spaceBetween: 24 },
+      },
+      on: {
+        init: updateFill,
+        progress: updateFill,
+        breakpoint: (sw) => requestAnimationFrame(() => updateFill(sw)),
+      },
+    });
+  }
+
+  // ---------- Review bar: tap to expand on phones and tablets ----------
+  const reviewToggle = document.querySelector(".sg-fontswitch__toggle");
+  if (reviewToggle) {
+    reviewToggle.addEventListener("click", () => {
+      const bar = reviewToggle.parentElement;
+      const open = bar.classList.toggle("is-open");
+      reviewToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      reviewToggle.textContent = open ? "Close" : "Review";
+    });
+  }
+
   // ---------- How It Works: exact open height for each card's description ----------
   // CSS animates max-height to var(--sg-open); measuring the real height keeps
   // the expand smooth instead of racing toward an oversized cap.
