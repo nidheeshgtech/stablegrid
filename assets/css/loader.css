@@ -440,39 +440,18 @@ html[data-loader="10"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
 }
 @keyframes sg-l9-word { to { opacity: 1; filter: none; transform: none; } }
 .sg-l9__pct { font-size: 10px; letter-spacing: 0.22em; color: rgba(255, 214, 152, 0.75); }
-/* L9 exit: wordmark lifts away, lines implode into the mark, then an
-   aperture with a glowing rim opens from the mark's centre to reveal the page. */
-@property --sg-hole {
-  syntax: "<length>";
-  inherits: true;
-  initial-value: 0px;
-}
+/* L9 exit: wordmark lifts away while the blueprint scales up softly and
+   blurs out; the black screen dissolves and the hero banner settles from
+   zoomed-in to normal underneath (same feel as L10). */
 html[data-loader="9"] .sg-loader {
-  --sg-hole: 0px;
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--sg-hole), #000 calc(var(--sg-hole) + 1px));
-  mask-image: radial-gradient(circle at 50% 50%, transparent var(--sg-hole), #000 calc(var(--sg-hole) + 1px));
-  transition: --sg-hole 1.15s cubic-bezier(0.7, 0, 0.25, 1) 0.6s;
+  transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.25s;
 }
-html[data-loader="9"] .sg-loader.is-done { --sg-hole: 150vmax; }
-html[data-loader="9"] .sg-loader::before {
-  /* glowing rim riding the edge of the opening */
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--sg-hole) * 2);
-  height: calc(var(--sg-hole) * 2);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px #ffb100, 0 0 40px 8px rgba(255, 177, 0, 0.55);
-  opacity: 0;
-  pointer-events: none;
-}
-html[data-loader="9"] .sg-loader.is-done::before { opacity: 1; transition: opacity 0.2s ease 0.6s; }
+html[data-loader="9"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
 html[data-loader="9"] .sg-loader.is-done .sg-l9__lines {
-  transform: scale(0.15);
+  transform: scale(1.18);
+  filter: blur(4px);
   opacity: 0;
-  transition: transform 0.7s cubic-bezier(0.6, 0, 0.8, 0.4), opacity 0.45s ease 0.3s;
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s, filter 0.8s ease 0.3s, opacity 0.7s ease 0.45s;
 }
 html[data-loader="9"] .sg-loader.is-done .sg-l9__foot {
   opacity: 0;
