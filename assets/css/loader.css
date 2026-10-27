@@ -313,3 +313,81 @@ html[data-loader="6"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .sg-l5__mark, .sg-l6__orbit { animation: none; }
 }
+
+/* =====================================================================
+   L7 Pulse / L8 Grid: small, more animated. Their exits play inside the
+   loader first, then the screen fades.
+   ===================================================================== */
+html[data-loader="7"] .sg-loader__v7,
+html[data-loader="8"] .sg-loader__v8 { display: flex; }
+html[data-loader="7"] .sg-loader,
+html[data-loader="8"] .sg-loader {
+  background: #030303;
+  transition: opacity 0.5s ease 0.55s, visibility 0s linear 1.05s;
+}
+html[data-loader="7"] .sg-loader.is-done,
+html[data-loader="8"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
+
+/* L7 Pulse: pieces light up in a looping clockwise wave */
+.sg-loader__v7 { flex-direction: column; align-items: center; gap: 16px; }
+.sg-l7__mark { width: 44px; height: 44px; overflow: visible; }
+.sg-l7__piece {
+  fill: #ffb100;
+  opacity: 0.18;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sg-l7-pulse 1.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.2s);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.45s ease;
+}
+@keyframes sg-l7-pulse {
+  0%, 100% { opacity: 0.18; filter: none; }
+  35% { opacity: 1; filter: drop-shadow(0 0 30px rgba(255, 177, 0, 0.9)); }
+}
+.sg-loader.is-done .sg-l7__piece {
+  animation: none;
+  opacity: 0;
+  transform: translate(var(--bx), var(--by)) scale(0.6);
+}
+.sg-l7__meta { display: flex; align-items: center; gap: 10px; }
+.sg-l7__bar { position: relative; width: 56px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+.sg-l7__bar span { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p)); background: #ffb100; box-shadow: 0 0 8px #ffb100; }
+.sg-l7__pct { min-width: 30px; font-size: 10px; letter-spacing: 0.14em; color: rgba(255, 214, 152, 0.85); }
+.sg-loader.is-done .sg-l7__meta { opacity: 0; transition: opacity 0.3s ease; }
+
+/* L8 Grid: diagonal wave across a 4x4 dot grid, collapses into the mark */
+.sg-l8 { position: relative; width: 48px; height: 48px; display: grid; place-items: center; }
+.sg-l8__dots {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+}
+.sg-l8__dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 177, 0, 0.25);
+  animation: sg-l8-wave 1.4s ease-in-out infinite;
+  animation-delay: var(--d);
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.2, 1) var(--d), opacity 0.4s ease var(--d);
+}
+@keyframes sg-l8-wave {
+  0%, 100% { background: rgba(255, 177, 0, 0.22); transform: scale(0.8); box-shadow: none; }
+  40% { background: #ffb100; transform: scale(1.35); box-shadow: 0 0 10px #ffb100; }
+}
+.sg-l8__mark {
+  width: 30px;
+  height: 30px;
+  fill: #ffb100;
+  opacity: 0;
+  transform: scale(0.4) rotate(-20deg);
+  transition: opacity 0.4s ease 0.3s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+}
+.sg-loader.is-done .sg-l8__dots i { animation: none; opacity: 0; transform: scale(0); }
+.sg-loader.is-done .sg-l8__mark { opacity: 1; transform: none; filter: drop-shadow(0 0 12px rgba(255, 177, 0, 0.7)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-l7__piece, .sg-l8__dots i { animation: none; opacity: 1; }
+}
