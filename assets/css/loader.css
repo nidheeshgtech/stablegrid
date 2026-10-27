@@ -208,18 +208,18 @@ html[data-loader="2"] .sg-loader { background: transparent; }
    V3 Power fill: outlined mark fills with rising amber "liquid" (wave on
    top) in step with progress. Exit: circular wipe collapses into the logo.
    ===================================================================== */
-.sg-loader__v3 { flex-direction: column; align-items: center; gap: 26px; }
-.sg-l3__mark { width: 128px; height: 128px; overflow: visible; }
-.sg-l3__outline path { fill: rgba(255, 177, 0, 0.05); stroke: rgba(255, 177, 0, 0.55); stroke-width: 4; }
+.sg-loader__v3 { flex-direction: column; align-items: center; gap: 14px; }
+.sg-l3__mark { width: 52px; height: 52px; overflow: visible; filter: drop-shadow(0 0 14px rgba(255, 177, 0, 0.35)); }
+.sg-l3__outline path { fill: rgba(255, 177, 0, 0.06); stroke: rgba(255, 177, 0, 0.6); stroke-width: 10; }
 .sg-l3__level {
   transform: translateY(calc((1 - var(--p)) * 560px));
 }
 .sg-l3__wave { animation: sg-l3-wave 1.6s linear infinite; }
 @keyframes sg-l3-wave { to { transform: translateX(-260px); } }
 .sg-l3__fill { fill: #ffb100; }
-.sg-l3__word { width: 210px; height: auto; fill: #fff; opacity: 0.9; }
+.sg-l3__word { width: 92px; height: auto; fill: #fff; opacity: 0.85; }
 .sg-l3__pct {
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.2em;
   color: #ffd698;
 }
