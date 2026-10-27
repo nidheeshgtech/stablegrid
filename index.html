@@ -1,0 +1,1113 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!-- Must run first: content only starts hidden when JS is running. -->
+<script>document.documentElement.classList.add('js');</script>
+<script>
+  // Page loader version under review: ?loader=1|2|3 (0 = off), remembered.
+  (function () {
+    var root = document.documentElement;
+    var v = new URLSearchParams(location.search).get('loader');
+    try { v = v || localStorage.getItem('sg-loader'); if (v) localStorage.setItem('sg-loader', v); } catch (e) {}
+    root.dataset.loader = /^[0-3]$/.test(v) ? v : '1';
+    if (root.dataset.loader !== '0') root.classList.add('is-loading');
+  })();
+</script>
+<link rel="stylesheet" href="assets/css/loader.css">
+<script>
+  // Font versions under review. Only the active set's Google Fonts stylesheet is loaded.
+  window.SG_FONT_SETS = {
+    v1: { name: 'Inter Tight \u00b7 Inter \u00b7 JetBrains Mono', css: 'family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600' },
+    v2: { name: 'Archivo \u00b7 IBM Plex Sans \u00b7 IBM Plex Mono', css: 'family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600' },
+    v3: { name: 'Bricolage Grotesque \u00b7 DM Sans \u00b7 DM Mono', css: 'family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=DM+Sans:opsz,wght@9..40,400..700&family=DM+Mono:wght@400;500' },
+    v4: { name: 'Open Sans \u00b7 Roboto Mono', css: 'family=Open+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500' },
+    v5: { name: 'Roboto \u00b7 Roboto Mono', css: 'family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500' },
+    v6: { name: 'Google Sans \u00b7 Google Sans Code', css: 'family=Google+Sans:wght@400;500;700&family=Google+Sans+Code:wght@400;500' },
+    v7: { name: 'Montserrat \u00b7 Roboto Mono', css: 'family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500' }
+  };
+  window.SG_LOAD_FONT_SET = function (v) {
+    if (document.getElementById('sg-font-' + v)) return;
+    var link = document.createElement('link');
+    link.id = 'sg-font-' + v;
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?' + window.SG_FONT_SETS[v].css + '&display=swap';
+    document.head.appendChild(link);
+  };
+  (function () {
+    var v = new URLSearchParams(location.search).get('font');
+    try { v = v || localStorage.getItem('sg-font'); } catch (e) {}
+    if (!window.SG_FONT_SETS[v]) v = 'v1';
+    document.documentElement.dataset.font = v;
+    window.SG_LOAD_FONT_SET(v);
+  })();
+</script>
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
+<link rel="stylesheet" href="assets/css/reveal.css">
+<link rel="stylesheet" href="assets/css/africa-map.css">
+<link rel="stylesheet" href="assets/css/type.css">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/ecosystem.css">
+<link rel="stylesheet" href="assets/css/steps.css">
+<link rel="stylesheet" href="assets/css/about.css">
+<link rel="stylesheet" href="assets/css/ui.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+</head><body class="bg-[#000000] font-body-md text-[#e5e2e1] antialiased min-h-screen selection:bg-[#ffb100] selection:text-black"><svg aria-hidden="true" class="inline-defs-container" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="sg-word" viewBox="553 26 911 460"><path d="M979.039 302.594H1050.27C1111.16 302.594 1146.23 336.032 1146.23 392.85C1146.23 449.667 1111.16 483.105 1050.27 483.105H979.039V302.594ZM1011.66 454.017H1048.63C1090.23 454.017 1113.34 431.997 1113.34 392.85C1113.34 353.702 1090.23 331.682 1048.63 331.682H1011.66V454.017Z"/><path d="M919.359 483.105V302.594H951.982V483.105H919.359Z"/><path d="M785.044 483.105H752.422V302.594H832.347C876.116 302.594 898.68 322.167 898.68 359.955C898.68 389.044 885.087 407.258 858.717 414.054L904.117 483.105H865.514L825.279 417.045H785.044V483.105ZM785.044 387.956H831.26C854.639 387.956 865.785 378.713 865.785 359.955C865.785 340.925 854.639 331.682 831.26 331.682H785.044V387.956Z"/><path d="M659.867 318.894C616.425 318.894 588.043 345.538 588.043 386.953C588.043 428.367 616.425 455.012 659.867 455.012C672.61 455.012 683.905 453.274 694.331 450.088V410.991H644.807V380.871H727.926V468.913C709.68 480.787 687.959 486 658.709 486C594.415 486 553 447.192 553 386.953C553 326.713 594.415 287.905 658.709 287.905C687.959 287.905 709.68 293.118 727.926 304.992V342.932H726.188C708.811 326.424 687.38 318.894 659.867 318.894Z"/><path d="M1362.87 116.263H1444.16V144.536H1362.87V192.111H1463.73V221.199H1330.25V40.6875H1463.73V69.776H1362.87V116.263Z"/><path d="M1316.35 221.199H1186.67V40.6875H1219.29V192.111H1316.35V221.199Z"/><path d="M1140.3 128.769V129.312C1160.69 135.565 1171.29 149.701 1171.29 171.45C1171.29 204.344 1149.54 221.199 1107.95 221.199H1025.58V40.6875H1101.15C1143.02 40.6875 1164.77 57.2707 1164.77 89.6214C1164.77 108.379 1156.61 121.7 1140.3 128.769ZM1058.2 115.991H1098.71C1121.27 115.991 1132.15 108.379 1132.15 92.6118C1132.15 77.1161 1121.81 69.776 1100.88 69.776H1058.2V115.991ZM1058.2 192.111H1107.13C1127.8 192.111 1138.4 184.499 1138.4 168.459C1138.4 152.42 1127.52 144.264 1105.23 144.264H1058.2V192.111Z"/><path d="M979.253 221.199L964.844 187.217H872.414L858.005 221.199H824.023L903.405 40.6875H934.668L1014.32 221.199H979.253ZM918.901 77.6598H918.357L884.375 158.673H952.883L918.901 77.6598Z"/><path d="M791.987 221.199H759.365V69.776H702.547V40.6875H848.533V69.776H791.987V221.199Z"/><path d="M628.299 26C653.495 26 676.954 32.0819 689.407 41.3494V78.1302H687.67C675.216 64.8081 653.206 56.9885 627.72 56.9885C603.393 56.9885 587.753 67.4146 587.753 83.6329C587.753 97.2446 597.89 104.195 630.327 107.381C681.588 112.594 700.413 130.26 700.413 165.593C700.413 202.374 672.61 224.095 625.113 224.095C593.546 224.095 568.639 217.723 553 205.849V168.779H554.738C572.114 184.708 596.152 193.106 624.245 193.106C650.889 193.106 665.949 183.549 665.949 166.462C665.949 151.692 655.523 144.741 621.349 140.976C571.246 135.473 553.29 119.255 553.29 85.6602C553.29 48.5898 581.961 26 628.299 26Z"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.2 2.5 4.8 13.4h6.1l-1.1 8.1 8.4-10.9h-6.1l1.1-8.1Z" fill="currentColor"/></symbol>
+<symbol id="i-nodes" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 12h5.5M12.5 12 17 6.5M12.5 12 17 17.5"/></g><g fill="currentColor"><circle cx="5" cy="12" r="2.4"/><circle cx="18.2" cy="5.4" r="2.4"/><circle cx="18.2" cy="18.6" r="2.4"/></g></symbol>
+</svg>
+<div class="sg-loader" id="sg-loader" aria-hidden="true">
+<div class="sg-loader__v sg-loader__v1">
+<div class="sg-l1__logo">
+<svg class="sg-l1__mark" viewBox="0 0 514 512"><path class="sg-l1__piece" style="--i:0;--dx:-260px;--dy:160px;--r:-35deg" d="M119.488 511H1V283.102H119.488V511Z"/><path class="sg-l1__piece" style="--i:1;--dx:-120px;--dy:300px;--r:25deg" d="M186.95 282.673L238.165 328.922V405.563L312.466 475.802L374.264 416.058V511H134.282V282.673H186.95Z"/><path class="sg-l1__piece" style="--i:2;--dx:260px;--dy:220px;--r:40deg" d="M511.356 263.391V511H389.057V403.675L389.324 328.895L458.449 263.391H511.356Z"/><path class="sg-l1__piece" style="--i:3;--dx:-300px;--dy:-200px;--r:-30deg" d="M117.845 59.0706L47.8731 130.724L51.1878 224.973L96.5471 266.676H1V1H117.845V59.0706Z"/><path class="sg-l1__piece" style="--i:4;--dx:280px;--dy:-240px;--r:30deg" d="M513 246.965H460.612L389.059 181.189L389.057 1H513V246.965Z"/><path class="sg-l1__piece" style="--i:5;--dx:40px;--dy:-320px;--r:-20deg" d="M374.264 110.346H299.712L245.276 58.8829H132.638V1H374.264V110.346Z"/></svg>
+<svg class="sg-l1__word" viewBox="0 0 911 460"><use href="#sg-word"></use></svg>
+</div>
+<div class="sg-l1__bar"><span></span></div>
+<div class="sg-l1__meta"><span class="sg-loader__label">Stabilising the grid</span><span class="sg-l1__pct"><span data-pct>0</span>%</span></div>
+</div>
+<div class="sg-loader__v sg-loader__v2">
+<div class="sg-l2__half sg-l2__half--top">
+<div class="sg-l2__foot"><span class="sg-loader__label">The StableGrid Project</span><span class="sg-loader__label">Uganda &middot; Zambia &middot; Kenya</span></div>
+<div class="sg-l2__head">
+<svg class="sg-l2__mark" viewBox="0 0 514 512"><path pathLength="1" d="M119.488 511H1V283.102H119.488V511Z"/><path pathLength="1" d="M186.95 282.673L238.165 328.922V405.563L312.466 475.802L374.264 416.058V511H134.282V282.673H186.95Z"/><path pathLength="1" d="M511.356 263.391V511H389.057V403.675L389.324 328.895L458.449 263.391H511.356Z"/><path pathLength="1" d="M117.845 59.0706L47.8731 130.724L51.1878 224.973L96.5471 266.676H1V1H117.845V59.0706Z"/><path pathLength="1" d="M513 246.965H460.612L389.059 181.189L389.057 1H513V246.965Z"/><path pathLength="1" d="M374.264 110.346H299.712L245.276 58.8829H132.638V1H374.264V110.346Z"/></svg>
+<div class="sg-l2__count"><span data-pct="pad">000</span><small>%</small></div>
+</div>
+</div>
+<div class="sg-l2__half sg-l2__half--bottom"></div>
+<div class="sg-l2__line"><span></span></div>
+</div>
+<div class="sg-loader__v sg-loader__v3">
+<svg class="sg-l3__mark" viewBox="0 0 514 512">
+<defs><clipPath id="sg-l3-clip"><path d="M119.488 511H1V283.102H119.488V511Z"/><path d="M186.95 282.673L238.165 328.922V405.563L312.466 475.802L374.264 416.058V511H134.282V282.673H186.95Z"/><path d="M511.356 263.391V511H389.057V403.675L389.324 328.895L458.449 263.391H511.356Z"/><path d="M117.845 59.0706L47.8731 130.724L51.1878 224.973L96.5471 266.676H1V1H117.845V59.0706Z"/><path d="M513 246.965H460.612L389.059 181.189L389.057 1H513V246.965Z"/><path d="M374.264 110.346H299.712L245.276 58.8829H132.638V1H374.264V110.346Z"/></clipPath></defs>
+<g class="sg-l3__outline"><path d="M119.488 511H1V283.102H119.488V511Z"/><path d="M186.95 282.673L238.165 328.922V405.563L312.466 475.802L374.264 416.058V511H134.282V282.673H186.95Z"/><path d="M511.356 263.391V511H389.057V403.675L389.324 328.895L458.449 263.391H511.356Z"/><path d="M117.845 59.0706L47.8731 130.724L51.1878 224.973L96.5471 266.676H1V1H117.845V59.0706Z"/><path d="M513 246.965H460.612L389.059 181.189L389.057 1H513V246.965Z"/><path d="M374.264 110.346H299.712L245.276 58.8829H132.638V1H374.264V110.346Z"/></g>
+<g clip-path="url(#sg-l3-clip)"><g class="sg-l3__level"><path class="sg-l3__fill sg-l3__wave" d="M-20 10 Q45 -14 110 10 T240 10 T370 10 T500 10 T630 10 T760 10 T890 10 V640 H-20 Z"/></g></g>
+</svg>
+<svg class="sg-l3__word" viewBox="0 0 911 460"><use href="#sg-word"></use></svg>
+<div class="sg-l3__pct"><span data-pct>0</span>%</div>
+</div>
+</div>
+<script src="assets/js/loader.js"></script>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        color: #e5e2e1;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .glass-card {
+      background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-elevated {
+      background: linear-gradient(180deg, rgba(24, 24, 24, 0.9) 0%, rgba(12, 12, 12, 0.95) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 177, 0, 0.2);
+    }
+    .glow-amber {
+      box-shadow: 0 0 50px -10px rgba(255, 177, 0, 0.18);
+    }
+    @keyframes pulseEnergy {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.18); }
+    }
+    .node-pulse {
+      animation: pulseEnergy 3s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .node-pulse { animation: none !important; }
+      video { display: none; }
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary-container": "#b9b5a8",
+            "outline-variant": "#3a3528",
+            "on-primary-fixed": "#281800",
+            "tertiary-container": "#2a2928",
+            "surface-dim": "#050505",
+            "tertiary-fixed-dim": "#c8c6c5",
+            "on-secondary-fixed-variant": "#49473d",
+            "color-cream": "#E8E2D5",
+            "error-container": "#93000a",
+            "primary": "#ffd698",
+            "surface": "#0a0a0a",
+            "error": "#ffb4ab",
+            "on-primary-container": "#ffb100",
+            "surface-variant": "#141414",
+            "on-tertiary": "#303030",
+            "surface-container-lowest": "#000000",
+            "primary-container": "#ffb100",
+            "on-secondary": "#323028",
+            "on-tertiary-container": "#d0cec9",
+            "surface-bright": "#1f1f1f",
+            "on-surface-variant": "#a6a096",
+            "color-muted": "#888888",
+            "primary-fixed": "#ffdeae",
+            "inverse-primary": "#7f5600",
+            "primary-fixed-dim": "#ffba3f",
+            "surface-container-highest": "#222222",
+            "on-error": "#690005",
+            "tertiary": "#dedcdb",
+            "surface-tint": "#ffba3f",
+            "inverse-on-surface": "#121212",
+            "on-error-container": "#ffdad6",
+            "color-pure-white": "#FFFFFF",
+            "surface-container-high": "#181818",
+            "on-primary-fixed-variant": "#604100",
+            "secondary": "#cbc6b9",
+            "background": "#000000",
+            "color-pure-black": "#000000",
+            "tertiary-fixed": "#e4e2e1",
+            "surface-container": "#101010",
+            "secondary-fixed-dim": "#cbc6b9",
+            "color-border": "rgba(255, 255, 255, 0.08)",
+            "on-background": "#e5e2e1",
+            "secondary-fixed": "#e7e2d5",
+            "on-tertiary-fixed-variant": "#474746",
+            "secondary-container": "#24221c",
+            "inverse-surface": "#e5e2e1",
+            "outline": "#635848",
+            "on-secondary-fixed": "#1d1c14",
+            "on-primary": "#281800",
+            "on-tertiary-fixed": "#1b1c1c",
+            "surface-container-low": "#0a0a0a",
+            "on-surface": "#f0ede8",
+            "color-dark-alt": "#141414",
+            "color-dark": "#000000"
+          },
+          fontFamily: {
+            "display-hero": ["var(--font-display)"],
+            "body-lg": ["var(--font-body)"],
+            "body-sm": ["var(--font-body)"],
+            "caption": ["var(--font-body)"],
+            "label-caps": ["var(--font-display)"],
+            "headline-lg": ["var(--font-display)"],
+            "headline-sm": ["var(--font-display)"],
+            "headline-md": ["var(--font-display)"],
+            "body-md": ["var(--font-body)"],
+            "mono": ["var(--font-mono)"]
+          }
+        }
+      }
+    };
+  </script>
+
+
+<!-- ==========================================
+       HEADER NAVIGATION
+  =========================================== -->
+<header class="sg-header fixed top-0 left-0 right-0 z-50">
+<!-- Hair-thin ambient gold top accent glow line -->
+<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#ffb100]/40 to-transparent pointer-events-none"></div>
+<div class="h-20 w-full px-6 lg:px-12 max-w-[1600px] mx-auto flex items-center justify-between">
+<!-- Brand Logo Lockup with Subtitle -->
+<div class="flex items-center gap-6">
+<a class="flex items-center" data-path="overview" href="#" aria-label="StableGrid home">
+<!-- Client logo: orange on dark (extended on desktop, compact on mobile) -->
+<img class="hidden sm:block h-8 lg:h-9 w-auto" src="assets/images/logos/SG_EXTENDED_yellow.svg" alt="StableGrid" width="1680" height="396">
+<img class="sm:hidden h-9 w-auto" src="assets/images/logos/SG_COMPACT_yellow.svg" alt="StableGrid" width="1464" height="512">
+</a>
+</div>
+<!-- Centered Editorial Navigation Menu -->
+<nav class="hidden lg:flex items-center gap-2" data-active-classes="text-[#ffb100] font-semibold"><a class="inline-flex items-center px-4 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/[0.05] transition-all font-label-caps text-xs uppercase tracking-widest font-medium" href="#about">About</a><a class="inline-flex items-center px-4 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/[0.05] transition-all font-label-caps text-xs uppercase tracking-widest font-medium" href="#advisory">Advisory Board</a><a class="inline-flex items-center px-4 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/[0.05] transition-all font-label-caps text-xs uppercase tracking-widest font-medium" href="#technology">Technology</a><a class="inline-flex items-center px-4 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/[0.05] transition-all font-label-caps text-xs uppercase tracking-widest font-medium" href="#partners">Partners</a><a class="inline-flex items-center px-4 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/[0.05] transition-all font-label-caps text-xs uppercase tracking-widest font-medium" href="#contact">Contact</a></nav>
+<!-- Right Action & Telemetry Area -->
+<div class="flex items-center gap-4">
+<!-- Primary CTA Button -->
+<a class="sg-btn sg-btn--primary sg-btn--sm hidden sm:inline-flex" data-path="contact" href="#contact"><span class="sg-btn__label">Initiate Assessment</span><span class="sg-btn__orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg></span></a>
+<!-- Mobile Menu Toggle Button -->
+<button class="sg-burger lg:hidden" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sg-mnav">
+<span class="sg-burger__bar"></span>
+<span class="sg-burger__bar"></span>
+</button>
+</div>
+</div>
+</header>
+<div class="sg-mnav lg:hidden" id="sg-mnav" aria-hidden="true" data-lenis-prevent>
+<div class="sg-mnav__inner">
+<span class="sg-mnav__kicker">Menu</span>
+<ol class="sg-mnav__list">
+<li><a href="#about"><span class="sg-mnav__num">01</span><span class="sg-mnav__text">About</span></a></li>
+<li><a href="#advisory"><span class="sg-mnav__num">02</span><span class="sg-mnav__text">Advisory Board</span></a></li>
+<li><a href="#technology"><span class="sg-mnav__num">03</span><span class="sg-mnav__text">How It Works</span></a></li>
+<li><a href="#partners"><span class="sg-mnav__num">04</span><span class="sg-mnav__text">Partners</span></a></li>
+<li><a href="#contact"><span class="sg-mnav__num">05</span><span class="sg-mnav__text">Contact</span></a></li>
+</ol>
+<div class="sg-mnav__foot">
+<a class="sg-btn sg-btn--primary w-full justify-between" href="#contact"><span class="sg-btn__label">Initiate Assessment</span><span class="sg-btn__orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg></span></a>
+<div class="sg-mnav__meta">
+<span>Target markets</span>
+<strong>Uganda &middot; Zambia &middot; Kenya</strong>
+</div>
+</div>
+</div>
+</div>
+<main class="w-full pt-20 bg-[#000000]">
+<div class="flex flex-col w-full selection:bg-primary-container selection:text-color-pure-black">
+<!-- ==========================================
+           SECTION 01: MONUMENTAL HERO (EXPANSIVE CINEMATIC WITH VIDEO & DYNAMIC GRID CANVAS)
+      =========================================== -->
+<section class="relative w-full min-h-[94vh] flex flex-col justify-between -mt-20 pt-32 pb-14 overflow-hidden bg-[#000000]" id="hero-section">
+<!-- Cinematic Video Layer with Static Fallback Poster & Parallax Container -->
+<div class="absolute inset-0 w-full h-[125%] -top-[10%] left-0 overflow-hidden pointer-events-none will-change-transform" id="hero-media-wrapper">
+<video autoplay="" class="w-full h-full object-cover object-center scale-[1.05] brightness-[0.75] contrast-[1.12] filter" loop="" muted="" playsinline="" poster="assets/images/photos/pylons-sunset.jpg" preload="auto">
+<source src="https://assets.mixkit.co/videos/preview/mixkit-transmission-towers-in-sunset-at-an-electrical-substation-41484-large.mp4" type="video/mp4">
+</video>
+<!-- Static fallback image for low power / reduced motion -->
+<div class="absolute inset-0 bg-cover bg-center -z-10" style="background-image: url(&quot;assets/images/photos/pylons-sunset.jpg&quot;);"></div>
+</div>
+<!-- Deep Obsidian Scrims (Blends Seamlessly into Pure Black #000000) -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-[#000000]/85 to-[#000000]/55 pointer-events-none z-10"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-[#000000]/95 via-[#000000]/70 to-transparent pointer-events-none z-10"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,177,0,0.16),transparent_70%)] pointer-events-none z-10"></div>
+<!-- Real-Time Interactive Canvas for Pulsing Circuit Lines and Energy Transmission Flow -->
+<canvas class="absolute inset-0 w-full h-full pointer-events-none z-20" height="962" id="gridCanvas" width="1280"></canvas>
+<!-- Animated Ambient SVG Circuit Traces across Header-Hero Interface -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-20 opacity-40 mix-blend-screen" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gridAmberPulse" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#ffb100" stop-opacity="0.9"></stop>
+<stop offset="50%" stop-color="#ffd698" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#ffb100" stop-opacity="0"></stop>
+</linearGradient>
+<filter height="140%" id="glowEffect" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="4"></feGaussianBlur>
+<feMerge>
+<feMergeNode in="blur"></feMergeNode>
+<feMergeNode in="SourceGraphic"></feMergeNode>
+</feMerge>
+</filter>
+</defs>
+<path class="opacity-60" d="M -50,160 L 320,160 L 520,320 L 980,320 L 1240,480 L 1800,480" fill="none" stroke="url(#gridAmberPulse)" stroke-dasharray="8 12" stroke-width="1.2"></path>
+<path d="M 200,80 L 400,240 L 760,240 L 1100,560 L 1650,560" fill="none" stroke="#ffb100" stroke-dasharray="4 16" stroke-opacity="0.45" stroke-width="0.8"></path>
+<circle class="node-pulse" cx="520" cy="320" fill="#ffb100" filter="url(#glowEffect)" r="3.5"></circle>
+<circle class="node-pulse" cx="980" cy="320" fill="#ffd698" filter="url(#glowEffect)" r="4.5"></circle>
+<circle class="node-pulse" cx="1240" cy="480" fill="#ffb100" filter="url(#glowEffect)" r="3.5"></circle>
+<circle class="node-pulse" cx="760" cy="240" fill="#ffb100" filter="url(#glowEffect)" r="4"></circle>
+</svg>
+<!-- Monumental Typography & Core Actions with Parallax Float Effect -->
+<div class="relative z-30 w-full px-6 lg:px-12 max-w-[1600px] mx-auto my-auto py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center will-change-transform" id="hero-content">
+<div class="lg:col-span-7 flex flex-col items-start justify-center">
+<div data-hero-reveal class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/70 border border-[#ffb100]/30 backdrop-blur-md mb-6">
+<span class="w-2 h-2 rounded-full bg-[#ffb100] shadow-[0_0_8px_#ffb100] animate-ping"></span>
+<span class="font-mono text-xs uppercase tracking-widest text-[#ffd698] font-bold">THE STABLEGRID PROJECT</span>
+</div>
+<h1 data-hero-reveal class="font-display-hero fs-hero text-white max-w-5xl tracking-tight leading-[1.03] font-bold drop-shadow-xl">
+Strengthening Africa’s power grids <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-container to-[#ff8a00]">where they need it most.</span>
+</h1>
+<p data-hero-reveal class="mt-8 max-w-2xl font-body-lg fs-lead-lg text-[#cbc6b9] font-light leading-relaxed">
+Targeted, data-led energy infrastructure designed to strengthen electricity networks through distributed energy storage and solar generation.
+</p>
+<div data-hero-reveal class="mt-10 flex flex-wrap items-center gap-4">
+<a class="sg-btn sg-btn--primary" href="#about"><span class="sg-btn__label">Explore the StableGrid Model</span><span class="sg-btn__orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg></span></a>
+<a class="sg-btn sg-btn--ghost" href="#technology"><span class="sg-btn__label">How It Works</span><span class="sg-btn__orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-nodes"></use></svg></span></a>
+</div>
+</div>
+<!-- Interactive Africa map: target markets (Uganda, Zambia, Kenya) -->
+<figure data-hero-reveal class="sg-map lg:col-span-5 relative w-full max-w-[520px] mx-auto lg:mr-0" style="animation-delay: 300ms;">
+<svg class="sg-map__svg w-full h-auto" viewBox="0 0 800 837" role="img" aria-labelledby="sg-map-title">
+<title id="sg-map-title">Map of Africa highlighting StableGrid target markets: Uganda, Zambia and Kenya</title>
+<g class="sg-map__countries">
+<path pathLength="1" class="sg-map__country" d="M561,689L559,688L557,688L554,688L552,688L549,688L545,686L543,686L539,686L536,685L536,682L532,681L530,680L526,680L524,679L523,677L520,674L520,672L521,670L521,668L518,667L516,667L516,664L514,662L512,662L509,660L507,659L504,657L502,655L501,651L501,650L499,648L499,646L496,644L495,642L493,640L493,637L495,637L497,637L500,639L503,638L505,638L508,639L510,640L513,639L515,636L518,634L520,631L521,628L523,627L526,625L528,624L533,622L534,620L534,618L534,616L538,614L541,613L543,612L546,612L549,612L551,612L551,614L551,616L554,616L557,617L560,617L563,618L565,619L568,621L572,622L574,622L576,623L578,624L579,626L579,628L580,631L580,633L580,636L580,640L580,642L580,645L579,647L577,648L577,650L579,652L578,655L578,657L580,659L580,662L579,664L578,666L577,668L575,669L574,671L573,675L574,676L571,679L569,681L566,684L564,686L563,688Z"><title>Zimbabwe</title></path>
+<path pathLength="1" class="sg-map__country" d="M338,60L338,63L338,65L338,68L336,70L334,71L332,72L330,73L329,74L327,76L325,77L323,79L323,82L324,84L324,86L323,89L320,91L317,93L315,91L314,89L314,87L313,83L312,81L312,78L311,75L310,73L308,71L306,70L304,69L302,67L302,66L301,63L299,61L297,60L296,59L294,56L293,54L293,51L294,49L296,48L297,46L299,45L301,44L301,42L302,40L303,37L302,35L302,33L301,31L302,28L303,24L301,22L303,21L304,19L305,18L308,17L311,15L318,13L319,13L319,15L321,14L323,15L323,17L325,18L327,19L330,18L332,16L334,18L332,20L330,23L328,24L327,25L327,28L328,30L330,31L332,32L333,34L334,37L332,39L331,41L329,43L327,45L323,47L322,49L323,53L325,54L326,55L329,54L329,56L331,56L333,56L334,58L336,60L338,60ZM336,42L334,43L336,42ZM332,54L330,54L330,52L332,52L332,54Z"><title>Tunisia</title></path>
+<path pathLength="1" class="sg-map__country" d="M219,311L218,314L217,318L219,320L222,321L223,322L224,325L224,327L224,330L226,332L227,336L227,339L227,342L227,345L227,348L227,352L227,356L226,359L226,361L228,363L227,365L223,366L221,366L220,364L218,363L217,361L215,359L214,358L215,356L215,354L215,352L214,350L215,348L215,343L216,342L215,340L213,338L214,336L214,334L214,331L214,329L213,328L211,326L212,325L213,320L211,318L209,316L207,314L208,312L208,310L210,310L214,311L216,311L219,311Z"><title>Togo</title></path>
+<path pathLength="1" class="sg-map__country" d="M653,505L654,508L653,507L651,506L650,504L650,503L651,500L652,503L653,505ZM658,491L658,494L657,496L655,496L656,493L655,491L658,491ZM579,542L578,541L576,540L574,539L572,539L569,538L568,536L566,536L564,535L563,533L559,533L557,531L555,529L555,527L553,523L552,522L551,520L550,517L549,515L546,512L544,511L542,508L541,505L541,504L542,501L541,498L541,496L539,492L539,490L539,488L540,486L543,486L546,484L548,482L550,479L551,477L552,475L554,473L555,472L556,471L553,469L552,468L552,466L552,463L555,462L556,460L556,458L556,455L555,452L552,449L552,447L554,447L556,447L559,447L561,447L563,447L565,447L567,447L569,447L571,447L573,447L575,447L577,447L579,447L581,447L583,447L585,447L587,447L589,447L591,447L593,448L595,449L598,450L600,452L603,453L605,454L607,456L610,457L612,458L615,460L617,461L619,463L622,464L624,465L627,467L629,468L631,469L633,471L632,474L634,476L635,478L637,479L639,480L641,482L642,483L644,484L646,485L647,487L649,488L650,489L649,492L649,494L648,498L646,502L646,504L646,507L649,509L650,511L653,513L654,515L653,517L651,520L651,524L653,526L652,529L651,531L652,534L653,536L655,539L655,542L656,544L656,545L657,548L659,550L661,551L664,553L663,555L661,556L659,558L657,559L654,560L652,561L650,562L648,562L646,562L643,564L640,563L637,563L635,564L634,566L631,568L630,568L628,568L626,567L624,566L622,568L620,568L618,568L615,566L613,565L611,566L609,567L605,566L602,566L602,564L600,563L598,561L599,558L599,557L598,555L598,553L597,549L595,546L593,543L591,545L589,544L586,544L584,543L582,543L580,542ZM656,526L656,524L658,522L657,525Z"><title>Tanzania</title></path>
+<path pathLength="1" class="sg-map__country" d="M568,729L570,731L569,733L570,735L570,739L569,740L568,743L566,744L563,744L561,744L558,742L557,740L555,738L555,736L555,735L557,732L559,729L562,727L565,728L568,729Z"><title>eSwatini</title></path>
+<path pathLength="1" class="sg-map__country" d="M591,388L589,390L587,392L584,393L582,393L580,392L578,392L577,393L575,393L573,394L571,396L568,395L567,393L565,394L563,394L560,393L558,393L556,395L554,394L553,393L551,392L549,390L547,388L545,387L544,385L541,383L540,385L538,386L536,385L532,385L530,386L528,387L526,386L524,385L522,383L521,381L518,379L517,378L516,376L515,374L515,372L514,370L510,368L508,367L506,366L505,364L505,360L503,359L502,357L500,356L497,354L494,353L492,350L493,348L490,345L488,343L484,342L482,342L481,340L481,338L481,336L485,335L485,333L486,331L486,329L488,327L488,325L490,322L490,320L493,319L499,318L500,320L502,322L508,328L510,328L512,327L522,327L524,329L533,330L534,327L537,326L541,325L542,323L542,322L546,320L552,323L555,325L557,325L559,325L565,320L567,318L568,315L574,310L573,308L573,306L573,304L570,300L577,300L577,298L583,297L582,300L582,303L582,313L584,315L590,320L591,322L591,323L590,326L590,327L592,328L593,331L593,333L593,336L593,338L589,340L586,340L583,340L582,342L581,345L580,346L583,348L585,348L587,348L590,351L592,352L592,354L595,356L597,357L599,359L600,361L601,364L602,367L603,369L604,371L606,373L604,375L601,378L599,380L596,383L594,385L591,388Z"><title>S. Sudan</title></path>
+<path pathLength="1" class="sg-map__country" d="M592,328L590,328L590,327L591,324L591,322L591,320L585,316L582,314L581,304L582,302L582,298L577,297L577,299L570,300L573,303L573,306L573,308L574,310L568,315L567,317L565,320L560,325L557,325L555,325L552,323L547,319L543,321L542,323L541,325L538,326L535,327L533,328L524,330L523,327L514,327L510,328L508,328L503,323L501,321L500,318L493,319L491,319L490,321L488,324L488,327L487,329L486,331L485,333L485,335L482,336L481,337L478,337L475,337L474,334L473,332L474,331L475,327L475,324L474,322L473,320L471,318L467,314L466,312L467,309L467,307L465,306L463,304L463,300L461,296L461,294L460,292L458,292L456,292L455,290L456,287L458,286L459,284L458,281L458,279L459,277L462,276L461,274L461,272L461,270L463,269L464,267L465,266L467,264L467,262L467,260L469,258L473,258L474,257L478,258L479,255L479,250L479,245L479,240L479,235L479,230L479,225L479,220L479,215L479,212L479,209L481,209L484,209L487,209L490,209L490,204L490,198L490,192L490,187L494,187L499,187L503,187L507,187L511,187L516,187L520,187L524,187L529,187L533,187L537,187L542,187L546,187L550,187L554,187L559,187L561,187L562,184L563,187L565,187L568,187L572,187L576,187L580,187L583,187L587,187L591,187L594,187L598,187L602,187L605,187L609,187L613,187L617,187L620,187L624,187L624,189L625,191L626,194L628,197L627,199L627,201L628,203L627,205L628,208L628,212L628,214L629,220L631,223L634,224L636,226L637,227L639,229L643,231L641,234L640,236L638,237L636,237L634,238L633,239L631,240L630,242L628,243L626,242L625,245L625,246L624,249L624,251L623,254L622,257L620,262L619,264L619,266L619,269L620,271L620,274L619,277L619,279L618,281L618,283L616,285L616,287L616,289L615,291L612,292L610,293L608,296L607,298L606,300L604,303L603,306L602,308L602,311L601,313L599,313L597,313L595,315L595,320L594,323L593,325L592,328Z"><title>Sudan</title></path>
+<path pathLength="1" class="sg-map__country" d="M539,686L543,686L545,686L549,688L552,688L554,688L557,688L559,688L561,689L562,691L562,694L563,696L564,699L564,700L565,703L567,706L567,707L568,710L569,712L569,714L569,716L569,719L569,721L569,725L568,727L568,729L565,728L562,727L560,728L558,731L556,734L555,736L555,738L557,740L558,742L561,744L563,744L566,744L569,744L569,740L569,739L571,739L573,739L576,739L578,739L579,742L577,746L576,748L575,754L573,758L569,762L567,763L562,768L560,770L558,774L556,776L554,780L552,783L550,786L546,790L543,791L541,794L537,797L534,801L529,804L526,806L522,809L517,813L514,815L508,817L506,817L501,817L499,817L497,818L497,820L496,820L492,820L490,820L488,822L486,822L481,821L475,820L472,821L467,821L465,820L463,820L459,821L454,824L451,824L449,825L446,824L444,824L440,825L434,829L432,829L430,829L427,827L426,825L424,824L422,824L421,822L418,821L416,822L416,824L415,822L415,819L416,818L415,815L413,813L412,811L411,809L410,807L412,806L414,805L415,803L415,800L415,799L414,794L411,790L408,786L404,780L402,776L399,768L397,764L394,759L396,758L398,757L398,755L399,753L402,753L403,755L404,757L404,759L407,761L409,761L412,762L415,762L418,762L421,762L423,763L425,762L426,760L428,760L430,758L432,757L434,751L434,746L434,741L434,736L434,731L434,725L434,720L434,716L438,719L439,721L441,724L442,727L443,729L443,730L442,733L441,735L441,738L444,739L446,739L450,739L452,739L454,738L456,737L459,734L462,732L464,730L465,728L465,726L466,723L468,722L471,721L473,722L475,723L477,724L479,725L481,725L483,727L485,727L487,727L490,727L493,727L495,726L498,723L499,720L500,717L500,716L502,715L506,714L508,711L510,710L512,704L514,702L515,701L517,700L519,699L521,698L523,696L524,694L526,692L528,691L530,691L532,690L533,690L535,687L539,686ZM532,776L534,775L536,774L537,771L539,770L540,767L539,765L537,764L535,762L532,760L529,759L527,760L525,761L522,762L520,764L519,766L517,769L515,770L513,771L514,773L515,775L517,777L517,778L519,779L521,782L523,782L525,782L526,780L527,777L530,776L531,776ZM635,966L632,966L634,965Z"><title>South Africa</title></path>
+<path pathLength="1" class="sg-map__country" d="M676,455L675,452L673,449L672,447L670,445L670,444L670,439L670,429L670,420L670,410L670,406L670,404L672,402L674,399L677,395L679,392L680,390L682,389L684,388L691,387L692,385L694,383L697,382L699,381L702,380L704,379L708,380L711,380L714,380L717,378L720,374L723,371L726,368L729,365L732,362L734,359L738,356L740,354L743,351L746,348L749,345L751,342L752,340L754,337L756,334L758,331L760,329L760,325L760,323L760,317L760,314L760,311L760,308L765,307L768,306L773,305L777,303L779,300L781,300L785,302L786,304L785,305L784,307L784,310L785,315L784,317L786,317L784,318L782,323L781,326L781,329L780,331L777,335L775,338L773,343L770,345L769,349L768,351L767,353L764,356L763,359L762,363L761,366L757,373L752,379L749,385L744,391L737,398L727,407L725,409L715,415L708,420L705,423L701,426L698,428L690,437L688,439L686,441L684,444L681,446L680,448L679,452L678,453Z"><title>Somalia</title></path>
+<path pathLength="1" class="sg-map__country" d="M760,308L760,311L760,314L760,317L760,323L760,325L760,327L758,331L756,334L754,337L752,340L751,342L749,345L745,345L741,345L738,345L734,344L730,342L725,341L722,340L718,338L714,337L711,336L708,335L704,334L702,332L700,330L697,328L695,325L694,323L692,321L691,318L689,316L690,313L692,311L694,309L695,307L698,307L700,311L703,313L706,316L709,317L715,317L719,315L723,313L727,313L730,314L732,314L738,312L741,310L743,309L746,310L750,309L754,308L757,307L759,308Z"><title>Somaliland</title></path>
+<path pathLength="1" class="sg-map__country" d="M93,339L92,341L91,343L89,344L89,346L88,348L86,350L84,352L81,354L79,357L76,355L74,354L69,352L68,350L68,348L65,348L64,347L63,344L62,343L60,341L59,339L61,340L63,338L61,338L60,335L61,335L59,334L61,333L62,331L65,329L66,327L67,326L68,324L70,323L74,323L77,322L79,322L81,322L83,324L85,326L86,328L88,330L87,332L89,334L90,336L89,339L88,341L89,341L91,340ZM67,351L63,350L66,349L67,351Z"><title>Sierra Leone</title></path>
+<path pathLength="1" class="sg-map__country" d="M70,268L71,270L71,272L72,274L73,276L74,279L73,281L74,283L77,284L78,286L79,287L80,289L80,291L80,293L80,294L78,295L75,295L73,295L70,296L68,295L66,295L64,295L62,294L60,292L58,292L54,292L50,292L47,292L43,292L40,292L37,292L35,293L33,294L30,295L27,295L24,295L22,296L20,296L20,294L22,293L20,293L20,290L20,288L23,287L26,287L28,287L30,287L30,285L32,284L34,284L36,284L38,282L40,283L42,284L46,285L48,286L51,285L52,285L52,283L49,282L47,283L45,282L43,281L40,280L38,279L36,279L35,280L32,282L28,282L25,282L22,282L21,280L20,278L18,275L17,273L15,270L13,269L11,269L15,267L19,262L22,257L23,255L23,253L24,251L25,249L27,248L29,249L31,249L32,249L35,248L37,248L39,247L42,247L45,247L47,248L50,250L51,252L53,253L55,253L57,253L59,256L59,258L61,259L63,261L64,263L65,264L67,265L69,267Z"><title>Senegal</title></path>
+<path pathLength="1" class="sg-map__country" d="M283,434L282,434L281,432L283,431L285,433Z"><title>São Tomé and Principe</title></path>
+<path pathLength="1" class="sg-map__country" d="M542,451L545,451L546,452L548,450L550,449L552,448L552,449L554,451L556,453L556,456L556,459L556,461L554,462L552,462L550,462L548,463L546,462L545,464L545,466L543,467L540,467L539,466L536,465L534,466L534,463L536,461L537,458L537,456L538,454L540,452Z"><title>Rwanda</title></path>
+<path pathLength="1" class="sg-map__country" d="M291,385L289,386L291,385ZM362,280L364,283L365,285L367,288L368,293L368,295L371,296L373,297L373,300L373,302L373,304L372,306L368,308L367,308L365,309L363,312L361,316L360,318L360,320L358,322L358,324L357,326L355,328L354,330L353,333L352,336L351,337L348,338L347,340L346,342L345,346L344,348L342,352L342,354L341,356L339,358L339,360L337,362L335,363L333,362L333,360L331,358L328,356L327,358L324,358L323,356L320,359L318,360L316,362L314,364L311,367L309,370L309,372L308,374L308,377L307,378L305,381L303,382L301,380L302,383L299,384L296,384L295,384L293,384L291,384L288,382L289,384L286,386L285,383L285,385L283,386L281,386L279,387L277,387L275,386L271,383L270,381L269,377L269,375L271,374L269,374L267,373L269,372L267,372L266,370L263,367L261,365L258,364L255,363L248,363L251,361L248,362L246,363L240,363L239,361L239,359L239,357L239,355L239,352L239,350L239,348L239,346L239,344L239,342L239,340L239,338L239,336L240,333L243,333L244,330L244,328L246,326L246,324L249,323L250,321L249,318L251,318L252,315L251,314L251,311L250,310L248,307L248,304L250,302L249,300L249,297L250,295L251,293L253,291L254,289L255,283L258,281L261,280L263,280L266,280L269,279L274,280L278,281L280,282L283,284L285,287L287,288L289,287L291,287L296,285L298,285L304,288L307,289L309,290L312,290L317,291L320,287L323,285L326,285L332,284L337,284L340,285L344,286L347,288L349,287L351,285L353,283L355,282L357,282L360,280L362,280Z"><title>Nigeria</title></path>
+<path pathLength="1" class="sg-map__country" d="M362,280L360,280L357,282L355,282L353,283L351,285L349,286L347,288L345,287L340,285L338,285L332,284L326,285L324,285L322,286L317,291L312,290L309,290L307,289L304,288L300,285L297,285L291,287L289,287L287,288L285,287L283,284L280,282L278,281L274,280L270,279L268,280L264,280L261,280L258,281L256,283L255,288L253,291L251,293L250,295L249,297L249,300L249,302L247,301L246,301L244,298L241,296L239,296L236,297L236,300L233,298L232,297L233,295L233,293L231,292L229,293L227,293L225,292L223,290L221,288L219,286L219,285L222,285L220,283L219,282L217,281L214,279L213,276L213,274L211,273L211,270L211,267L213,266L217,266L219,266L221,264L223,263L226,263L229,262L232,262L236,262L239,262L242,262L246,261L248,262L250,259L252,257L252,256L254,252L255,250L256,248L256,245L256,244L256,240L256,237L256,234L256,230L256,227L256,224L256,221L256,219L259,218L261,218L265,217L269,216L273,216L278,212L282,208L284,206L287,204L290,201L293,199L297,197L302,194L308,190L314,187L320,183L326,180L332,176L337,173L343,169L349,171L355,172L360,173L365,176L368,180L372,178L377,175L378,182L379,188L379,191L381,193L384,198L384,201L388,205L386,209L385,215L385,218L385,223L384,228L384,233L383,239L383,244L380,247L375,253L370,257L368,260L364,266L362,270L361,272L361,276L362,280Z"><title>Niger</title></path>
+<path pathLength="1" class="sg-map__country" d="M472,635L474,635L477,634L479,634L481,633L487,634L489,634L491,635L493,637L489,637L485,640L483,639L480,640L478,642L475,644L473,642L471,639L469,639L465,640L462,640L456,641L451,642L448,643L445,643L445,645L445,650L445,654L445,659L445,663L445,668L445,673L445,677L445,682L445,684L443,684L439,684L436,684L434,684L434,687L434,690L434,694L434,697L434,700L434,703L434,706L434,710L434,713L434,715L434,720L434,725L434,731L434,736L434,741L434,746L434,751L434,756L430,758L428,760L426,760L425,762L423,763L421,762L418,762L415,762L412,762L409,761L408,761L405,760L404,758L404,756L402,754L401,753L399,754L398,756L396,758L394,759L389,755L386,752L381,745L380,741L379,738L379,736L379,734L377,729L376,726L376,724L375,722L376,719L375,716L373,713L372,709L372,707L372,703L372,701L372,699L371,696L371,694L372,692L371,689L370,686L366,682L365,680L360,672L358,668L357,664L355,662L349,650L347,648L345,645L343,642L341,639L341,636L341,633L341,631L343,630L345,630L347,630L350,630L353,629L355,628L357,627L359,628L361,629L364,631L365,632L369,632L371,632L373,632L377,632L382,632L386,632L390,632L395,632L399,632L403,632L408,632L409,632L412,632L416,632L418,634L421,636L423,637L427,637L430,638L433,638L436,638L438,638L441,639L444,639L446,639L448,639L453,638L456,638L460,637L463,637L468,636L472,635Z"><title>Namibia</title></path>
+<path pathLength="1" class="sg-map__country" d="M561,689L564,686L566,684L568,682L571,679L573,677L573,675L574,672L574,670L577,668L578,666L579,664L580,662L580,659L578,657L578,655L578,653L578,651L577,649L579,648L580,645L580,643L580,640L580,636L580,633L580,631L579,628L579,626L580,624L577,624L574,622L572,622L568,621L565,619L563,618L560,617L557,617L554,616L551,616L551,614L551,612L550,609L549,607L549,605L552,604L554,603L557,602L559,602L561,601L564,600L566,599L569,598L571,598L575,596L579,595L583,594L585,597L586,599L588,600L591,599L594,599L596,599L597,601L598,604L598,607L598,608L596,611L596,613L594,615L596,617L596,619L598,621L600,623L602,625L604,626L603,628L605,629L606,626L605,624L606,621L606,619L610,618L611,617L612,613L612,610L612,608L612,606L613,604L612,601L611,599L608,596L607,594L606,593L603,590L601,588L599,588L598,585L597,582L597,579L596,576L596,574L597,571L598,569L598,568L601,566L605,566L608,566L609,567L612,565L615,566L618,568L620,568L622,568L624,566L626,567L628,568L630,568L631,568L634,566L635,564L637,563L639,563L642,565L646,562L648,562L650,562L652,561L654,560L657,559L659,558L661,556L663,555L665,555L665,557L665,559L665,562L664,564L664,567L665,569L665,571L665,575L665,577L666,578L665,581L664,582L666,585L666,587L665,589L666,592L666,595L667,597L666,599L668,599L668,601L669,603L667,605L667,607L665,610L663,614L660,616L659,619L657,620L657,622L651,625L649,627L647,628L645,628L641,630L638,630L635,632L631,634L628,636L626,638L624,640L623,643L620,645L619,647L617,647L617,649L614,649L610,652L607,656L602,660L600,658L600,661L600,663L599,666L600,668L603,671L604,675L604,677L606,680L607,685L606,687L607,689L608,686L609,689L608,692L609,695L608,698L607,704L608,705L608,708L606,712L603,714L598,716L590,719L586,720L584,721L580,724L578,726L577,728L576,730L577,731L579,733L579,731L580,732L579,739L576,739L573,739L571,739L570,735L570,733L570,731L568,729L568,727L569,725L569,722L569,719L569,716L569,714L569,712L568,710L567,707L567,706L566,704L565,702L564,699L563,696L562,694L562,691L561,689Z"><title>Mozambique</title></path>
+<path pathLength="1" class="sg-map__country" d="M183,38L187,41L188,43L189,45L189,49L189,51L189,53L190,56L190,59L191,61L191,64L193,66L195,67L195,69L195,72L192,72L190,72L188,72L185,72L183,72L181,72L178,72L176,73L175,75L170,77L168,77L166,77L165,79L166,81L165,83L167,84L167,85L165,86L162,87L160,88L157,89L155,90L152,91L150,94L147,97L145,97L143,98L141,98L139,98L137,98L135,98L135,100L132,101L129,100L126,102L123,103L119,105L115,108L112,110L111,112L111,113L111,115L111,117L111,120L111,123L110,125L109,127L110,128L107,129L105,129L103,129L101,130L99,132L97,132L95,131L93,132L90,131L88,130L86,130L84,130L82,131L81,133L80,135L78,137L77,139L75,141L73,141L72,143L71,145L71,148L70,150L70,151L69,154L67,156L65,157L63,158L61,159L60,162L59,164L57,165L55,166L52,167L51,169L50,171L50,174L49,177L49,180L48,182L47,184L46,186L44,188L43,190L42,192L40,193L38,193L34,193L33,193L29,192L26,192L22,192L20,193L17,193L18,188L19,185L22,183L24,180L25,177L26,175L27,173L28,171L30,167L28,168L29,166L33,163L37,159L39,158L41,156L41,154L41,150L42,148L43,146L44,144L45,140L47,138L49,137L51,136L54,134L56,132L57,128L59,125L60,123L63,120L64,119L68,119L73,117L78,115L81,113L84,111L88,108L90,107L94,103L96,100L97,98L99,97L100,95L100,92L98,89L98,87L98,84L98,80L99,77L103,73L104,71L104,68L109,63L112,60L115,58L123,55L128,53L131,51L132,49L137,42L141,32L144,30L146,30L149,29L148,31L151,34L154,36L156,37L160,38L164,37L166,37L168,37L170,37L172,37L174,36L176,38L179,38L181,38L183,38Z"><title>Morocco</title></path>
+<path pathLength="1" class="sg-map__country" d="M109,123L111,125L111,127L111,129L111,131L111,133L111,136L111,138L111,140L108,141L106,141L104,141L102,141L100,141L98,141L96,141L94,141L92,141L89,141L87,141L85,141L83,141L81,141L79,141L77,141L75,141L73,141L73,144L73,147L73,150L73,154L73,157L73,160L73,163L73,166L73,169L71,171L69,172L67,172L65,173L63,174L61,177L60,179L61,181L61,184L61,187L62,190L62,191L62,194L60,194L58,194L55,194L52,194L50,194L47,194L45,194L42,194L39,194L37,194L34,194L32,194L29,194L26,194L24,194L21,194L19,194L17,196L16,199L17,194L20,193L22,192L26,192L28,192L31,192L34,193L36,193L40,193L42,192L43,190L44,188L46,186L47,184L48,182L49,180L49,178L49,176L50,171L51,169L52,167L55,166L57,165L58,164L60,162L61,159L63,158L65,157L67,156L69,154L70,151L70,150L71,148L71,145L72,143L73,141L75,141L76,140L77,138L79,136L81,134L80,132L83,131L85,130L87,130L90,130L92,131L94,132L95,131L98,132L99,131L102,130L104,129L106,129L108,129L110,127L109,125L109,123Z"><title>W. Sahara</title></path>
+<path pathLength="1" class="sg-map__country" d="M24,213L24,211L24,213ZM70,268L68,266L66,265L64,263L63,261L61,260L59,258L59,256L57,254L56,253L54,253L52,253L51,251L47,248L45,247L42,247L40,247L38,247L35,248L32,249L31,249L29,249L27,248L25,249L24,251L23,253L23,255L22,251L23,249L23,248L24,244L26,241L27,237L28,233L28,229L27,226L26,224L26,221L25,219L23,217L25,215L25,212L26,209L26,207L24,205L23,202L21,202L20,200L18,197L16,200L16,198L17,194L21,194L24,194L26,194L29,194L32,194L34,194L37,194L39,194L42,194L45,194L47,194L50,194L52,194L55,194L58,194L60,194L62,194L62,191L62,190L61,187L61,184L61,181L60,179L61,177L63,174L65,173L67,172L69,172L71,171L72,170L73,167L73,164L73,161L73,158L73,155L73,152L73,149L73,146L73,143L75,141L77,141L79,141L81,141L83,141L85,141L87,141L89,141L92,141L94,141L96,141L98,141L100,141L102,141L104,141L106,141L108,141L111,141L111,138L111,136L111,133L111,131L111,129L111,127L113,128L115,129L117,131L119,132L121,133L123,134L125,136L128,137L130,138L132,139L134,141L136,142L138,143L140,144L142,146L145,147L146,148L149,150L152,151L154,153L150,153L145,153L141,153L138,153L134,153L134,155L135,158L135,161L135,164L136,167L136,169L136,172L137,175L137,178L137,181L138,183L138,186L138,189L139,192L139,195L139,198L140,200L140,203L140,206L141,209L141,212L141,214L142,217L142,220L142,223L142,226L143,228L143,231L143,234L144,237L144,240L144,243L145,245L145,248L148,251L148,254L147,257L146,260L144,260L142,260L139,260L137,260L135,260L132,260L130,260L128,260L126,260L123,260L121,260L119,260L116,260L114,260L112,260L109,260L107,260L105,260L103,260L103,258L102,260L99,261L96,262L94,261L91,261L89,261L88,261L86,264L83,262L80,260L78,259L76,261L75,263L75,266L73,268L70,268Z"><title>Mauritania</title></path>
+<path pathLength="1" class="sg-map__country" d="M80,295L79,293L80,291L80,289L79,287L78,286L77,284L75,285L74,283L73,280L73,278L73,275L71,273L71,271L70,268L72,269L74,267L75,264L76,262L77,260L79,259L83,262L84,263L87,263L89,261L91,261L93,261L96,262L99,261L101,261L102,259L105,260L107,260L109,260L112,260L114,260L116,260L119,260L121,260L123,260L126,260L128,260L130,260L132,260L135,260L137,260L139,260L142,260L144,260L146,260L147,257L148,254L148,251L146,249L145,245L144,243L144,240L144,237L143,234L143,231L143,228L142,226L142,223L142,220L142,217L141,214L141,212L141,209L140,206L140,203L140,200L139,198L139,195L139,192L138,189L138,186L138,183L137,181L137,178L137,175L136,172L136,169L136,167L135,164L135,161L135,158L134,155L134,153L138,153L141,153L145,153L150,153L154,153L158,155L161,157L164,159L168,162L172,164L175,167L179,169L183,171L187,174L190,176L194,179L198,181L201,184L205,186L209,188L212,191L216,193L220,196L221,197L222,199L223,201L227,203L227,205L229,206L233,206L236,209L239,209L241,210L244,211L245,214L245,216L244,218L244,219L246,221L250,220L253,220L256,219L256,221L256,224L256,227L256,230L256,234L256,237L256,240L256,243L256,245L256,248L255,250L254,252L253,254L252,256L251,258L248,260L246,261L243,261L239,262L236,262L232,262L229,262L226,263L223,263L221,264L219,266L217,266L213,266L212,266L209,266L206,265L204,266L201,265L198,267L195,268L192,270L190,271L187,272L185,275L181,274L177,276L175,280L175,281L172,281L172,284L170,286L168,286L165,284L163,284L161,286L160,288L161,290L158,292L159,294L159,296L157,298L154,299L152,300L150,300L149,302L149,305L149,307L149,309L147,311L147,314L147,316L144,317L143,318L141,320L139,320L139,318L138,316L138,314L136,315L134,316L133,318L131,318L130,319L130,321L128,320L125,319L124,317L122,318L120,320L119,321L118,319L116,317L115,315L115,313L115,311L112,311L112,309L114,307L112,306L110,304L109,302L108,299L107,296L105,294L103,294L103,296L102,297L100,298L98,299L96,298L94,298L92,298L89,300L87,301L86,298L84,298L82,299L80,299L79,297L80,295Z"><title>Mali</title></path>
+<path pathLength="1" class="sg-map__country" d="M583,594L581,594L579,592L578,590L578,588L579,587L580,584L580,582L580,580L581,578L583,577L585,577L586,575L584,575L583,572L584,570L584,568L583,566L584,563L584,561L583,559L586,557L588,555L587,553L586,551L584,549L584,547L583,545L581,544L580,543L582,543L584,543L586,544L588,544L590,545L591,543L595,546L597,548L598,551L598,553L599,556L599,558L598,560L599,562L600,564L602,565L599,567L598,569L597,571L596,573L596,576L597,578L597,582L598,584L598,587L601,588L603,590L606,593L607,594L608,596L611,599L612,601L613,604L612,606L612,608L612,610L612,613L612,616L610,618L607,618L606,621L605,623L606,626L606,629L604,629L604,627L603,626L600,623L598,621L597,620L596,618L595,616L595,614L596,612L598,608L598,607L598,604L597,602L596,599L594,599L592,599L589,600L586,599L585,597L583,594Z"><title>Malawi</title></path>
+<path pathLength="1" class="sg-map__country" d="M767,576L768,578L770,581L771,583L771,586L773,589L774,594L774,600L774,602L775,604L777,607L777,609L776,612L775,615L773,615L771,612L769,610L768,613L769,616L769,617L770,619L770,622L769,624L769,626L767,627L766,630L766,635L766,638L765,643L764,645L763,648L761,652L760,656L758,661L757,664L756,667L755,672L753,677L751,683L749,689L748,693L747,696L746,698L745,703L744,705L743,708L742,711L741,713L740,716L738,718L735,720L731,720L729,721L726,722L723,724L721,725L718,725L713,722L710,721L707,720L705,719L704,717L703,714L701,711L700,708L700,704L701,702L700,699L699,697L697,694L697,692L696,689L696,685L697,683L698,681L699,677L701,676L703,674L703,671L705,669L707,666L708,663L709,661L709,658L709,655L707,651L707,649L706,646L705,642L704,638L704,636L704,632L709,624L709,621L709,619L714,618L717,616L719,617L721,616L723,615L725,614L729,613L730,615L730,613L732,611L734,609L737,608L738,610L739,608L740,606L742,603L743,602L743,604L746,602L748,601L747,598L749,595L748,592L749,590L750,590L752,591L754,589L756,587L758,586L760,582L759,579L758,577L760,576L763,572L765,574L767,576ZM753,587L751,585L753,586ZM771,627L770,629L770,627L772,624L771,627Z"><title>Madagascar</title></path>
+<path pathLength="1" class="sg-map__country" d="M316,94L319,92L322,90L324,87L324,85L323,82L322,80L324,77L326,77L328,75L330,73L332,72L334,71L336,70L338,69L338,66L338,63L338,60L340,61L342,61L347,64L348,64L352,64L356,63L358,63L361,64L364,65L368,65L371,67L379,69L382,72L382,74L383,77L385,80L390,82L394,82L398,82L404,84L409,86L413,87L419,91L422,93L424,93L426,93L429,91L434,87L435,85L435,83L434,80L433,79L433,76L434,74L435,71L438,69L441,67L446,65L449,65L452,63L455,63L458,63L460,64L462,65L465,65L467,66L469,67L469,68L471,71L477,72L479,73L484,74L487,73L489,74L490,75L491,77L491,78L488,81L489,84L490,87L489,90L487,93L488,97L489,101L489,103L490,105L490,108L490,110L490,113L490,116L490,118L490,121L490,123L490,126L490,128L490,131L490,133L490,136L490,138L490,141L490,143L490,146L490,149L490,151L490,154L490,156L490,159L490,161L490,164L490,166L490,169L490,171L490,174L490,177L490,179L490,182L490,184L490,187L490,192L490,198L490,204L490,209L487,209L484,209L481,209L479,209L479,212L479,215L473,212L468,210L462,207L457,204L452,202L446,199L441,196L435,194L430,191L425,188L419,186L414,183L408,180L403,177L398,175L392,172L389,170L385,172L381,173L377,175L372,178L369,180L365,176L362,174L355,172L349,171L343,169L342,167L341,165L339,162L338,161L334,159L329,158L326,159L324,157L322,155L321,152L321,150L319,146L316,143L315,141L315,139L318,136L320,135L320,132L319,130L318,128L319,124L320,121L320,118L319,112L319,108L319,106L318,103L317,101L316,98L314,96L315,94Z"><title>Libya</title></path>
+<path pathLength="1" class="sg-map__country" d="M79,357L80,355L83,353L85,351L88,348L89,346L89,344L91,343L92,341L93,340L95,339L98,339L100,340L101,342L102,344L102,346L103,348L102,351L104,352L106,354L107,353L110,351L110,349L112,349L114,352L115,355L115,357L114,360L112,362L113,362L115,364L117,364L119,364L120,367L121,369L124,369L125,372L125,374L125,375L124,377L123,380L123,384L123,386L118,384L115,384L106,378L103,376L100,373L93,367L89,365L87,364L86,362L84,361L81,360L79,357Z"><title>Liberia</title></path>
+<path pathLength="1" class="sg-map__country" d="M532,776L530,776L528,776L526,779L525,781L523,782L521,782L519,780L518,779L517,777L515,775L514,773L513,771L515,770L517,769L518,767L519,765L521,763L523,762L527,760L529,759L531,759L533,761L536,763L538,764L540,767L539,768L538,770L537,773L536,774L532,776Z"><title>Lesotho</title></path>
+<path pathLength="1" class="sg-map__country" d="M20,296L22,296L24,295L27,295L30,295L33,294L35,293L37,292L40,292L43,292L47,292L50,292L54,292L54,294L54,296L52,297L52,299L54,302L51,304L49,304L48,304L46,305L44,305L42,306L40,310L38,311L37,309L35,309L36,307L37,305L39,304L37,303L35,304L34,302L37,301L35,300L32,302L30,302L29,301L27,301L24,299L25,297L23,297L20,296ZM28,301L27,301L28,301Z"><title>Guinea-Bissau</title></path>
+<path pathLength="1" class="sg-map__country" d="M93,339L90,341L88,341L89,339L90,337L89,335L89,333L88,331L86,328L85,326L83,324L81,322L79,322L77,322L74,322L72,324L68,324L67,326L66,327L65,329L62,331L62,332L60,333L59,331L57,330L56,328L55,325L54,323L51,323L50,321L46,320L44,316L44,314L42,313L40,312L40,313L39,311L42,306L44,305L46,305L48,304L49,304L51,304L54,303L54,300L52,298L54,297L54,294L54,292L57,292L59,292L61,293L61,294L63,294L65,295L67,295L70,296L73,295L74,295L78,295L80,295L79,297L80,299L82,300L84,298L86,298L87,301L89,300L91,298L93,297L96,298L98,299L100,298L102,297L103,297L103,295L105,294L107,295L108,297L109,301L109,303L111,305L113,306L112,308L111,311L113,310L115,312L115,314L115,317L118,319L118,321L117,322L117,326L117,328L119,329L119,332L119,333L119,336L121,337L122,339L122,340L120,340L118,339L116,340L115,342L117,343L117,345L117,347L116,350L114,350L112,350L110,349L110,351L109,353L106,354L105,353L103,352L103,350L103,347L102,345L102,343L101,341L100,340L95,340L93,339Z"><title>Guinea</title></path>
+<path pathLength="1" class="sg-map__country" d="M208,310L208,312L207,314L209,316L211,318L213,319L212,323L212,326L211,328L213,328L214,331L214,334L214,336L213,338L215,340L216,342L215,343L215,348L214,350L215,352L215,354L215,356L214,358L215,359L216,361L218,363L220,364L221,366L220,368L219,370L217,370L211,370L207,372L205,373L201,375L196,377L192,378L188,380L186,382L183,380L178,379L175,378L173,378L175,378L177,377L177,375L177,372L175,372L174,370L173,367L172,364L172,362L172,360L173,357L174,355L175,353L175,351L176,349L177,346L179,344L180,343L180,339L179,336L179,334L178,332L178,330L178,329L177,326L177,323L177,321L177,320L177,318L176,316L176,311L180,311L183,311L187,311L190,311L195,311L197,311L200,311L201,312L203,310L205,309L208,310Z"><title>Ghana</title></path>
+<path pathLength="1" class="sg-map__country" d="M22,282L25,282L28,282L32,282L34,282L36,279L38,279L40,280L42,281L44,281L46,283L48,283L51,282L53,284L51,285L48,286L46,285L43,284L41,284L39,283L37,282L34,284L32,284L30,285L30,287L28,287L26,287L23,287L21,287L19,285L21,283L22,285L24,285L26,285L28,284L30,284L32,283L34,283L30,283L27,283L24,285L22,283Z"><title>Gambia</title></path>
+<path pathLength="1" class="sg-map__country" d="M358,411L357,414L357,417L357,419L358,421L359,421L361,421L363,420L367,420L369,421L370,423L371,425L371,427L369,429L367,429L366,431L365,433L365,436L365,438L367,439L369,440L370,441L372,442L371,444L371,446L371,449L371,451L371,453L371,457L369,459L368,461L368,463L365,463L364,461L363,460L360,463L357,462L355,462L353,459L352,457L349,457L349,459L349,461L344,463L342,462L341,463L339,462L339,465L339,467L340,469L340,471L342,473L342,475L342,476L341,477L338,475L336,477L334,480L332,477L328,474L325,470L321,467L318,464L321,465L320,463L317,463L316,461L314,458L314,456L312,453L310,451L313,454L316,454L314,453L314,450L312,451L309,448L308,446L307,442L309,443L311,442L313,439L314,436L314,434L313,432L315,434L318,434L321,433L319,433L316,432L314,430L315,428L316,424L318,423L320,425L323,424L328,424L331,424L334,424L336,424L336,421L336,418L336,416L336,414L336,411L339,409L343,410L345,410L348,409L350,410L353,410L356,410L358,411Z"><title>Gabon</title></path>
+<path pathLength="1" class="sg-map__country" d="M606,373L604,371L603,369L602,367L601,364L600,361L599,359L597,357L595,356L592,354L592,352L590,351L588,349L586,348L583,348L581,347L581,345L582,342L583,340L585,340L588,340L591,340L593,337L593,333L593,331L592,329L593,325L594,323L595,321L595,316L596,313L598,313L600,314L602,313L602,309L603,306L603,304L604,302L607,298L608,296L610,294L612,292L614,292L616,291L616,287L616,285L618,283L618,281L619,279L619,277L620,274L622,274L625,274L626,273L628,272L631,275L633,273L635,269L635,267L637,269L639,270L641,272L646,272L648,270L650,271L653,271L655,271L656,271L660,272L662,272L665,275L668,275L670,277L672,280L675,283L677,285L680,288L681,290L683,291L685,293L685,296L683,298L682,301L680,303L679,306L679,309L679,311L681,312L684,311L687,311L689,310L691,311L691,313L689,315L691,318L691,320L693,322L695,324L696,327L698,329L702,332L704,334L708,335L711,336L714,337L718,338L722,340L725,341L730,342L734,344L737,345L741,345L745,345L749,345L746,348L743,351L740,354L738,356L734,359L732,362L729,365L726,368L723,371L720,374L717,378L715,380L711,380L708,380L705,379L702,380L700,381L697,382L694,383L692,385L691,387L686,388L682,389L680,390L679,390L676,391L674,391L672,391L669,388L665,388L663,389L659,391L657,392L655,395L653,396L650,396L648,396L645,395L643,395L642,395L639,395L636,393L634,392L632,390L630,389L627,387L624,386L620,385L617,385L615,385L613,383L611,381L611,379L612,378L612,376L608,374L606,375Z"><title>Ethiopia</title></path>
+<path pathLength="1" class="sg-map__country" d="M620,274L620,271L619,269L619,266L619,264L620,262L622,258L623,255L624,251L624,249L624,247L625,245L625,243L627,243L629,243L631,240L633,239L634,238L636,237L638,237L639,237L641,235L643,233L647,238L648,242L649,246L650,252L651,255L654,260L656,263L657,261L659,261L660,263L661,266L664,266L666,267L668,269L672,270L676,274L678,277L684,282L686,284L686,286L690,288L691,290L693,291L694,292L692,293L690,295L687,294L685,293L683,291L681,290L680,288L679,286L675,283L672,280L670,277L668,275L665,275L663,273L661,272L658,272L656,271L654,271L651,272L649,270L646,272L642,272L639,270L637,269L635,267L635,269L633,272L632,275L629,273L627,272L626,274L623,274L620,274ZM661,258L664,259L661,259L659,259L659,257L660,256L661,258Z"><title>Eritrea</title></path>
+<path pathLength="1" class="sg-map__country" d="M307,393L309,393L308,397L307,399L304,399L304,397L306,395L306,393ZM336,411L336,414L336,416L336,418L336,421L336,423L334,424L331,424L328,424L325,424L321,424L320,424L318,423L316,423L315,421L316,418L318,415L319,412L319,409L321,411L325,411L327,411L330,411L333,411L336,411Z"><title>Eq. Guinea</title></path>
+<path pathLength="1" class="sg-map__country" d="M624,187L620,187L617,187L613,187L609,187L605,187L602,187L598,187L594,187L591,187L587,187L583,187L580,187L576,187L572,187L568,187L565,187L563,187L563,185L561,187L559,187L554,187L550,187L546,187L542,187L537,187L533,187L529,187L524,187L520,187L516,187L511,187L507,187L503,187L499,187L494,187L490,187L490,184L490,182L490,179L490,177L490,174L490,171L490,169L490,166L490,164L490,161L490,159L490,156L490,154L490,151L490,149L490,146L490,143L490,141L490,138L490,136L490,133L490,131L490,128L490,126L490,123L490,121L490,118L490,116L490,113L490,110L490,108L490,105L489,103L489,101L488,98L487,95L489,91L490,88L489,86L489,83L489,80L491,78L494,79L500,78L507,79L510,80L515,81L519,82L522,83L530,84L533,85L535,86L537,87L540,86L542,85L546,82L548,82L550,81L553,79L557,78L553,80L556,80L558,80L560,78L564,80L567,79L571,81L568,79L566,82L569,82L571,83L571,82L575,84L577,84L579,83L582,83L585,83L588,83L590,83L594,81L595,85L596,87L597,89L598,91L599,94L600,96L600,98L601,101L600,104L599,110L597,115L596,118L595,120L592,121L589,118L587,116L585,114L583,112L583,110L582,108L579,104L578,102L576,98L575,96L574,99L573,101L575,103L576,105L576,108L578,110L579,112L581,114L583,116L584,118L586,120L587,122L588,125L589,127L590,130L591,134L595,141L598,145L599,148L601,151L605,159L607,161L610,163L612,165L610,165L609,167L609,170L609,172L611,176L612,178L617,180L619,182L623,186Z"><title>Egypt</title></path>
+<path pathLength="1" class="sg-map__country" d="M696,305L694,309L692,311L690,311L688,310L685,311L682,311L680,312L679,309L679,306L679,304L681,301L683,298L685,296L686,294L689,295L691,293L693,292L696,294L698,298L697,299L693,302L691,303L689,305L691,305L693,304L696,305Z"><title>Djibouti</title></path>
+<path pathLength="1" class="sg-map__country" d="M174,377L172,378L174,377ZM118,321L120,320L122,318L124,317L125,319L128,320L129,321L130,319L131,318L133,318L133,316L135,316L138,314L138,316L139,318L139,320L140,320L142,318L144,317L146,318L149,319L151,320L152,322L153,324L155,325L157,325L160,326L161,325L164,324L166,323L168,323L170,323L172,324L174,325L175,327L177,329L178,330L178,332L179,334L179,336L180,339L180,343L179,344L177,346L176,348L175,351L175,353L174,355L173,357L172,359L172,362L172,364L173,367L174,368L175,371L177,372L177,374L177,376L175,378L173,377L173,375L171,377L165,376L162,375L159,375L157,376L162,376L156,377L153,377L149,377L151,377L146,378L142,379L140,379L135,382L131,383L129,384L127,385L125,386L123,386L123,384L123,381L123,379L124,376L125,374L125,372L124,369L122,369L121,368L120,366L118,364L115,364L113,362L112,362L114,360L115,358L115,355L114,352L113,350L116,350L117,348L117,345L118,343L116,342L116,340L118,339L120,340L122,341L122,339L121,337L119,336L119,334L121,333L119,330L117,329L117,326L117,324L117,322Z"><title>Côte d'Ivoire</title></path>
+<path pathLength="1" class="sg-map__country" d="M555,528L553,528L550,529L547,529L544,530L541,530L538,531L535,531L534,534L533,536L531,538L528,540L530,543L531,545L531,547L531,550L531,552L531,555L530,558L529,561L528,564L528,566L529,569L533,572L535,574L537,575L539,576L541,576L541,574L543,573L544,576L544,578L544,581L544,582L544,584L544,587L543,587L542,585L540,586L537,587L535,587L534,585L533,582L531,581L529,578L527,576L525,575L522,574L520,574L518,572L515,569L515,567L513,567L512,569L511,571L508,571L506,571L502,570L501,570L497,568L495,568L494,566L493,564L494,563L491,563L489,563L487,564L485,565L483,564L483,561L481,560L479,559L477,560L474,560L472,560L469,561L466,561L464,561L462,561L460,562L459,560L459,558L460,555L460,553L459,549L457,547L455,544L454,539L455,536L455,534L455,530L454,527L454,524L454,521L455,519L451,518L447,518L444,518L441,518L440,516L441,514L436,514L434,514L430,515L428,518L428,520L427,522L426,526L424,526L422,526L419,525L417,526L415,526L413,526L412,527L409,527L407,527L405,525L403,522L402,520L400,518L400,515L398,512L397,510L397,509L397,506L396,504L394,502L389,502L386,502L382,502L378,502L375,502L371,502L368,502L366,502L364,502L359,502L357,502L355,501L353,502L351,503L349,503L347,502L347,500L349,500L350,497L350,494L350,492L353,489L356,488L357,489L359,490L361,489L363,488L363,486L365,486L367,485L369,485L371,485L370,487L371,489L372,490L374,491L376,489L379,486L380,484L383,483L386,481L389,478L390,475L391,472L391,470L391,463L391,461L392,459L394,458L396,455L398,451L399,449L401,447L403,447L406,444L408,442L408,439L409,436L410,433L410,429L410,426L410,423L411,419L412,416L412,413L414,408L415,405L417,402L417,401L418,398L418,396L418,394L418,391L418,389L418,386L421,384L423,380L426,378L428,377L430,378L432,379L436,381L438,382L439,384L441,385L443,385L445,386L446,386L448,387L451,387L453,387L455,387L461,389L463,385L464,384L466,382L469,382L471,383L474,382L475,381L477,381L479,380L481,379L484,379L487,380L490,379L493,379L495,376L498,376L503,377L509,378L511,378L513,377L517,378L518,379L520,381L521,382L523,384L525,385L527,386L529,387L531,385L535,385L537,386L540,385L541,383L544,385L545,387L547,388L549,390L551,392L553,393L554,394L556,396L556,398L555,400L555,402L556,403L555,405L555,407L557,408L559,410L561,411L560,414L557,416L552,421L550,422L549,424L546,426L546,428L546,430L544,432L543,434L543,436L542,440L542,443L542,445L542,448L542,451L540,453L537,455L537,458L537,460L535,462L534,464L535,466L537,469L538,471L538,473L538,475L538,477L538,479L539,482L539,484L540,486L539,488L539,490L539,492L540,494L541,497L542,499L541,503L541,505L541,507L543,510L546,512L548,514L550,517L551,520L552,522L553,523L554,526L555,528Z"><title>Dem. Rep. Congo</title></path>
+<path pathLength="1" class="sg-map__country" d="M334,480L335,478L338,475L340,477L342,477L342,475L343,473L341,472L340,470L340,468L339,466L339,463L341,463L342,462L344,463L349,462L349,460L349,458L350,456L353,457L354,460L357,462L359,463L362,461L364,460L365,462L366,464L368,462L368,460L369,458L371,455L371,453L371,449L371,446L371,444L372,442L370,441L369,440L367,439L365,438L365,436L365,435L365,432L366,431L369,429L371,427L371,425L370,423L369,421L367,420L365,419L361,421L359,421L357,421L357,419L357,417L357,414L358,412L361,411L364,411L367,411L369,411L372,411L374,411L376,412L378,413L380,413L382,413L384,413L387,415L389,417L390,414L390,412L391,410L392,408L393,405L394,403L394,400L395,397L396,395L400,395L403,395L405,394L409,395L411,395L413,396L415,395L417,394L418,396L418,398L417,401L417,402L415,405L414,408L412,413L412,416L412,418L410,423L410,426L410,429L410,433L409,436L408,439L408,442L406,444L403,447L401,447L399,449L398,451L396,455L394,458L392,459L391,461L391,463L391,470L391,472L390,475L389,478L387,480L384,481L382,483L379,486L376,489L374,491L372,490L371,490L371,488L371,486L370,484L368,485L366,486L364,486L363,488L361,489L359,490L357,489L356,488L354,486L352,486L349,487L348,489L346,490L345,491L342,490L341,489L340,486L337,483L334,480Z"><title>Congo</title></path>
+<path pathLength="1" class="sg-map__country" d="M710,572L710,575L708,574L707,573L708,573ZM702,575L700,574L702,575ZM698,570L696,569L696,565L697,567L698,570Z"><title>Comoros</title></path>
+<path pathLength="1" class="sg-map__country" d="M479,215L479,220L479,225L479,230L479,235L479,240L479,245L479,250L479,255L479,257L476,257L473,258L470,258L468,259L467,262L467,264L465,266L464,267L463,269L462,270L461,272L461,274L462,276L460,277L458,278L458,280L459,282L459,285L456,287L455,290L455,292L458,292L460,292L461,294L461,296L462,298L463,303L464,305L465,306L467,308L466,311L465,312L462,311L459,312L457,313L454,315L453,317L453,319L451,320L450,322L445,326L444,328L441,330L438,332L435,332L432,333L430,333L427,334L424,333L422,334L423,337L423,339L420,342L418,344L414,345L411,345L409,345L406,346L403,347L401,349L399,349L396,349L395,347L393,348L391,349L389,350L387,351L385,351L383,350L384,348L381,344L380,341L379,339L377,337L375,335L372,333L370,331L368,329L366,327L367,325L369,323L373,323L376,323L378,323L381,323L384,323L382,320L380,317L379,315L378,313L378,310L378,308L379,305L378,303L378,301L377,299L376,297L376,294L375,292L372,290L372,289L369,288L367,288L365,285L364,283L362,280L361,276L360,273L362,270L364,266L368,260L370,257L375,253L380,247L383,244L383,239L384,233L384,228L385,223L385,218L385,215L386,210L388,206L385,202L384,199L381,193L379,191L379,188L378,182L377,175L381,173L385,172L389,170L392,172L398,175L403,177L408,180L414,183L419,186L425,188L430,191L435,194L441,196L446,199L452,202L457,204L462,207L468,210L473,212L479,215Z"><title>Chad</title></path>
+<path pathLength="1" class="sg-map__country" d="M481,337L481,340L482,342L484,342L487,343L490,345L492,347L493,349L493,351L497,354L500,356L502,357L503,359L505,360L505,362L506,364L507,367L510,368L512,369L514,371L515,373L516,376L517,378L514,377L511,378L509,378L503,377L499,376L496,375L493,378L491,379L487,380L484,379L481,379L479,380L477,381L475,381L474,382L471,383L469,382L466,382L464,384L463,385L462,388L455,387L453,387L451,387L449,387L446,386L445,386L443,385L441,385L439,384L438,382L436,381L434,380L432,378L428,377L426,378L423,380L421,384L418,386L418,389L418,391L418,394L418,396L417,394L415,395L413,396L411,395L409,395L406,394L403,395L400,395L397,395L396,396L394,399L394,402L394,403L392,407L391,410L390,407L390,406L390,403L388,401L386,400L384,398L382,395L379,392L378,390L378,388L378,386L375,384L374,378L373,376L373,374L373,369L371,368L372,366L374,365L376,361L377,359L378,357L379,356L380,354L382,352L383,350L385,351L387,351L389,350L391,349L393,349L395,347L396,349L398,350L401,349L403,347L405,346L407,345L411,345L414,345L416,345L418,343L421,340L423,338L421,336L423,334L427,334L429,333L432,333L435,332L438,332L440,331L443,329L445,326L448,323L451,320L453,319L453,317L453,315L456,314L458,313L461,312L463,311L466,312L467,314L470,317L473,320L474,322L475,324L475,327L475,330L473,332L474,334L474,336L478,337L481,337Z"><title>Central African Rep.</title></path>
+<path pathLength="1" class="sg-map__country" d="M-75,244L-77,243L-75,241L-73,243L-75,244ZM-56,266L-58,267L-60,265L-59,263L-57,264L-56,266ZM-72,245L-74,245L-73,244ZM-50,252L-48,252L-47,254L-49,255L-50,253ZM-65,267L-68,267L-66,265L-65,267ZM-63,247L-65,248L-66,247L-63,247ZM-49,247L-51,245L-49,247ZM-53,264L-53,262L-52,264Z"><title>Cabo Verde</title></path>
+<path pathLength="1" class="sg-map__country" d="M305,382L306,380L308,377L308,374L309,372L309,370L311,367L313,365L315,363L317,362L319,359L322,357L323,357L326,358L327,356L329,356L332,359L333,362L335,363L337,362L339,360L339,358L341,356L342,354L342,352L344,350L345,346L346,342L347,340L348,338L350,338L352,337L353,333L353,332L354,329L357,328L358,324L358,323L360,320L360,318L361,316L363,312L365,309L367,308L368,308L371,307L373,305L373,303L373,300L373,298L372,296L369,296L368,294L367,288L369,288L371,288L372,290L375,292L376,294L376,297L377,299L378,301L378,303L379,305L378,307L378,310L378,313L379,315L380,317L382,320L385,322L381,323L379,323L376,323L373,323L370,323L368,323L366,326L367,328L369,330L372,333L374,335L377,337L379,339L380,341L381,344L382,347L384,349L382,352L380,354L379,356L378,357L377,359L376,361L375,363L373,365L371,367L373,369L373,373L373,375L373,377L374,383L376,385L378,387L379,389L379,392L382,395L384,398L386,400L388,401L389,403L390,405L390,407L391,410L390,412L390,414L390,416L388,416L386,414L382,413L380,413L378,413L376,413L374,411L373,411L369,411L367,411L364,411L361,411L358,411L356,410L353,410L351,410L348,409L345,410L343,410L339,409L336,409L333,411L330,411L327,411L325,411L321,411L319,410L319,407L320,405L320,402L321,401L320,399L317,395L317,394L317,392L318,390L316,390L314,391L311,390L310,388L309,385L308,384L307,383L305,384L305,382Z"><title>Cameroon</title></path>
+<path pathLength="1" class="sg-map__country" d="M553,463L551,465L551,467L552,468L554,469L556,472L554,473L552,475L551,477L550,479L549,481L546,484L544,485L540,486L539,484L539,482L538,480L538,477L538,475L538,473L538,471L537,469L535,467L536,465L539,466L540,467L543,467L545,466L545,464L546,462L548,463L550,462L552,462Z"><title>Burundi</title></path>
+<path pathLength="1" class="sg-map__country" d="M219,311L216,311L214,312L210,310L208,310L205,309L203,310L202,312L200,311L198,311L195,311L191,311L187,311L183,311L180,311L177,311L176,314L176,317L177,318L177,320L177,323L177,325L178,328L176,328L175,326L173,324L170,323L168,323L166,323L164,324L161,325L160,326L158,326L156,326L154,324L152,323L152,321L150,319L148,319L146,317L147,315L147,312L147,310L149,307L150,305L149,303L149,302L151,300L154,299L156,298L158,297L159,294L158,292L161,291L160,289L160,287L162,285L164,284L168,286L170,286L172,284L172,282L174,281L175,280L176,278L179,275L185,275L186,272L189,272L192,270L195,268L197,268L200,265L202,265L206,265L209,266L211,267L211,270L210,271L212,274L212,276L213,277L215,280L217,281L219,282L221,284L219,285L219,286L220,288L223,290L225,292L227,293L229,293L231,292L233,293L234,294L232,295L233,298L235,300L234,303L231,306L226,307L225,306L223,308L221,308L221,310L219,311Z"><title>Burkina Faso</title></path>
+<path pathLength="1" class="sg-map__country" d="M493,637L493,639L494,641L496,643L499,646L499,648L501,650L501,651L502,655L503,656L507,659L509,660L512,662L514,662L516,664L516,666L518,667L520,667L521,669L520,671L520,674L522,676L524,679L526,680L530,680L532,681L534,682L535,684L538,685L535,687L533,690L532,690L530,691L528,691L526,692L524,694L523,696L521,697L519,698L517,700L515,701L514,702L512,704L511,710L508,711L506,714L503,715L500,715L500,717L499,720L498,722L497,725L494,727L491,727L489,727L485,727L483,727L481,725L479,725L477,724L475,723L473,722L471,721L468,722L466,723L465,726L465,728L464,730L462,732L459,734L457,736L455,737L453,739L451,739L446,739L444,739L442,739L441,736L442,733L443,731L443,730L442,727L441,724L439,721L438,719L434,716L434,713L434,710L434,706L434,703L434,700L434,697L434,694L434,690L434,687L434,684L436,684L439,684L443,684L445,684L445,682L445,677L445,673L445,668L445,663L445,659L445,654L445,650L445,645L445,643L448,643L451,642L456,641L462,640L465,640L469,639L470,639L473,642L474,643L477,642L480,640L483,639L485,640L488,638L493,637Z"><title>Botswana</title></path>
+<path pathLength="1" class="sg-map__country" d="M227,365L228,364L227,361L227,359L226,356L227,352L227,348L227,345L227,342L227,339L227,336L226,333L224,330L224,328L224,325L224,323L222,321L219,320L217,318L217,314L218,312L219,311L221,309L223,308L224,306L226,306L229,306L234,304L235,302L236,300L235,298L238,296L240,295L244,298L246,301L247,301L249,303L248,305L249,309L251,311L251,314L252,315L251,317L249,318L250,321L249,322L248,324L246,325L245,327L244,330L243,333L241,333L239,336L239,338L239,340L239,342L239,344L239,346L239,348L239,350L239,352L239,355L239,357L239,359L239,361L239,363L234,364L229,365L227,365Z"><title>Benin</title></path>
+<path pathLength="1" class="sg-map__country" d="M356,488L353,489L351,491L349,492L350,497L349,500L347,500L346,498L346,496L344,492L346,490L348,489L349,487L352,486L354,486L355,488ZM478,558L479,562L479,564L479,566L479,568L478,571L479,575L478,577L478,580L479,582L475,583L471,583L468,583L465,583L462,583L459,583L456,583L456,584L456,588L456,592L456,595L456,599L456,602L456,606L456,610L456,613L456,616L457,619L458,623L460,624L462,626L464,629L467,631L470,633L472,635L468,636L463,637L460,637L456,638L453,638L450,639L446,639L444,639L442,639L440,639L436,638L433,638L430,638L427,637L425,637L422,637L419,636L417,633L412,632L409,632L408,632L403,632L399,632L395,632L390,632L386,632L382,632L377,632L373,632L371,632L369,632L366,632L364,631L361,629L359,628L357,627L355,628L353,629L350,630L348,630L346,630L344,630L341,631L341,626L342,624L342,622L341,616L341,615L343,613L344,611L344,608L347,601L348,594L349,591L350,587L354,583L355,580L357,579L360,577L362,574L363,573L364,569L364,565L364,560L363,557L362,554L361,551L359,549L358,547L357,543L357,542L356,540L355,538L356,536L359,534L359,531L356,523L353,517L353,514L350,510L348,507L347,505L350,504L353,503L355,502L357,502L359,502L362,502L366,502L368,502L371,502L374,502L378,502L382,502L386,502L389,502L392,502L395,503L396,505L397,507L397,510L398,512L399,514L399,516L401,519L403,522L405,525L406,527L409,527L411,527L413,526L415,526L417,526L419,525L421,526L424,526L426,526L427,523L427,521L428,519L428,516L432,514L436,514L439,514L440,516L441,518L444,518L447,518L451,518L454,518L454,521L454,524L454,527L455,530L455,534L455,536L454,539L454,543L456,545L459,549L459,551L460,554L460,556L458,559L459,561L461,562L463,561L466,561L468,561L472,560L474,560L477,560L478,558Z"><title>Angola</title></path>
+<path pathLength="1" class="sg-map__country" d="M305,18L304,19L303,21L301,22L303,24L302,26L301,30L302,31L302,35L303,37L302,40L301,42L301,44L299,45L297,46L296,48L294,49L293,51L293,53L294,56L295,58L297,60L299,61L301,63L302,66L302,67L304,69L306,70L308,71L310,72L311,75L312,78L312,81L313,83L314,87L314,89L315,91L316,94L313,95L316,98L317,100L318,103L319,105L319,108L319,112L320,118L320,121L319,124L318,126L319,130L320,132L320,134L318,136L315,138L315,140L316,143L319,146L321,149L321,152L322,155L324,157L326,159L329,158L334,159L338,160L339,162L341,165L342,167L343,169L337,173L332,176L326,180L320,183L314,187L308,190L302,194L297,197L293,199L290,201L287,204L284,206L282,208L279,211L274,215L269,216L265,217L261,218L259,218L256,219L253,220L250,220L247,221L245,220L243,219L244,217L245,215L245,212L242,210L240,210L236,209L234,207L230,206L228,205L227,203L223,201L222,199L222,197L220,196L216,193L212,191L209,188L205,186L201,184L198,181L194,179L190,176L187,174L183,171L179,169L175,167L172,164L168,162L164,159L161,157L158,155L154,153L152,151L149,150L146,148L145,147L142,146L140,144L138,143L136,142L134,141L132,139L130,138L128,137L125,136L123,134L121,133L119,132L117,131L115,129L113,128L111,127L111,125L111,123L111,120L111,117L111,115L111,113L111,112L112,110L114,109L118,106L122,103L124,103L127,101L131,101L134,101L135,99L137,98L138,98L141,98L143,98L145,97L147,97L149,95L151,92L155,90L156,89L160,88L162,87L164,86L167,85L167,84L165,83L166,81L165,79L165,77L168,77L170,77L174,75L175,73L178,72L180,72L183,72L185,72L188,72L190,72L192,72L194,73L194,70L196,68L194,66L192,65L191,61L190,59L190,56L189,54L189,51L189,49L188,47L188,45L188,43L184,40L187,39L190,38L192,36L193,35L196,33L198,32L204,30L206,30L209,29L210,28L212,26L214,25L217,24L219,23L223,22L231,22L235,21L238,21L241,20L248,19L251,18L262,18L265,19L267,21L270,21L273,19L277,19L279,18L282,16L287,18L289,18L290,16L292,16L294,17L296,18L300,18L305,18Z"><title>Algeria</title></path>
+<path pathLength="1" class="sg-map__country sg-map__country--target" data-country="Zambia" tabindex="0" role="button" aria-label="Zambia, target market" d="M551,612L549,612L546,612L543,612L541,613L538,614L536,615L534,617L534,620L533,622L528,624L526,625L523,627L521,628L520,631L518,634L515,636L513,639L510,640L508,639L505,638L503,638L501,639L498,637L496,637L493,637L491,635L489,634L487,634L482,633L479,634L477,634L474,635L472,635L470,633L467,631L464,629L462,627L460,624L458,623L457,619L456,616L456,613L456,610L456,606L456,602L456,599L456,595L456,592L456,588L456,584L456,583L459,583L462,583L465,583L468,583L471,583L475,583L477,583L478,580L478,578L479,576L478,573L479,570L479,567L479,565L479,562L479,560L480,560L482,561L483,563L483,565L486,564L489,563L491,563L493,562L493,564L494,566L495,568L497,568L500,569L502,570L505,570L508,571L511,571L512,569L513,567L515,567L515,569L517,571L519,573L521,574L525,575L527,576L529,577L530,580L532,581L534,584L535,586L536,587L538,587L541,586L542,586L543,588L544,584L544,582L544,581L544,578L544,576L544,575L544,573L542,573L541,576L539,576L537,575L535,574L533,572L530,570L529,568L528,565L529,561L530,559L531,556L531,553L531,550L531,548L531,545L530,543L528,540L531,538L532,536L534,535L534,533L538,531L541,530L544,530L547,529L550,529L553,528L555,528L556,530L557,532L562,533L564,534L565,536L567,536L568,538L570,538L573,539L575,540L578,541L579,542L580,544L582,544L583,546L584,548L585,550L586,553L588,555L586,557L584,558L584,561L584,563L583,564L583,566L584,569L583,572L584,575L586,575L585,577L583,577L581,578L580,580L580,582L580,584L579,587L578,588L577,589L578,591L579,592L581,593L579,595L575,596L572,597L570,598L566,599L564,600L561,601L559,602L557,602L554,603L552,604L549,605L549,607L550,609L551,611Z"/>
+<path pathLength="1" class="sg-map__country sg-map__country--target" data-country="Uganda" tabindex="0" role="button" aria-label="Uganda, target market" d="M590,447L587,447L585,447L583,447L581,447L579,447L577,447L575,447L573,447L571,447L569,447L567,447L565,447L563,447L561,447L559,447L557,447L555,447L553,448L551,447L549,450L546,452L545,451L542,451L542,448L542,447L542,444L543,442L543,437L543,434L544,432L545,431L546,428L546,426L549,424L550,422L552,421L557,416L560,414L561,412L560,410L558,409L556,408L555,405L556,403L555,402L555,400L556,398L556,396L557,394L559,393L562,393L564,394L567,392L568,395L570,396L572,394L575,393L577,393L578,392L580,392L582,393L584,393L586,393L589,390L591,388L593,391L595,393L596,394L596,397L597,400L598,402L600,404L601,406L601,408L602,410L602,412L603,414L603,416L602,418L600,420L600,422L598,422L596,426L595,428L593,430L592,432L591,436L591,440L590,445L590,447Z"/>
+<path pathLength="1" class="sg-map__country sg-map__country--target" data-country="Kenya" tabindex="0" role="button" aria-label="Kenya, target market" d="M670,460L672,459L670,460ZM590,447L590,445L591,440L591,436L591,433L592,431L593,429L596,426L597,424L599,422L601,421L601,419L602,417L603,415L602,412L602,410L601,408L601,406L600,404L598,402L597,400L596,397L597,395L595,393L593,391L591,388L594,385L596,383L599,380L601,378L604,375L606,373L608,374L611,375L612,377L611,379L611,381L613,383L614,385L617,385L620,385L623,385L627,387L630,389L632,390L634,392L636,393L639,395L642,395L643,395L645,395L648,396L649,396L653,396L655,395L657,393L659,391L663,389L665,388L668,387L671,390L673,391L675,391L679,390L680,390L679,392L677,395L674,399L672,402L670,403L670,406L670,410L670,420L670,429L670,439L670,444L670,445L672,447L673,449L675,452L676,454L675,457L672,458L670,459L669,461L666,464L664,464L662,466L661,470L661,471L659,473L658,475L657,478L656,480L655,482L653,486L652,488L650,488L647,487L646,485L644,484L642,483L641,482L639,480L637,479L635,478L634,476L632,474L633,472L633,470L629,468L627,467L624,465L622,464L619,463L617,461L615,460L612,458L610,457L607,456L605,454L603,453L600,452L598,450L595,449L593,448L591,447Z"/>
+</g>
+<g class="sg-map__markers" aria-hidden="true">
+<circle class="sg-map__marker" data-country="Uganda" cx="568" cy="414" r="5"></circle>
+<circle class="sg-map__marker" data-country="Kenya" cx="640" cy="432" r="5"></circle>
+<circle class="sg-map__marker" data-country="Zambia" cx="533" cy="577" r="5"></circle>
+</g>
+</svg>
+<div class="sg-map__tip" role="status" aria-live="polite" hidden>
+<span class="sg-map__tip-label">Target market</span>
+<span class="sg-map__tip-name"></span>
+</div>
+<figcaption class="mt-6 flex flex-wrap items-center gap-3">
+<span class="font-mono text-[11px] uppercase tracking-widest text-white/50 mr-1">Target markets</span>
+<button class="sg-map__chip" type="button" data-country="Uganda">Uganda</button>
+<button class="sg-map__chip" type="button" data-country="Zambia">Zambia</button>
+<button class="sg-map__chip" type="button" data-country="Kenya">Kenya</button>
+</figcaption>
+</figure>
+</div>
+</section>
+<!-- ==========================================
+           SECTION 02: ABOUT STABLEGRID (DEEP BLACK EDITORIAL & MEDIA)
+      =========================================== -->
+<section class="sg-about w-full py-28 lg:py-36 border-t border-white/[0.08]" id="about">
+<div class="px-6 lg:px-12 max-w-[1600px] mx-auto">
+<div data-scroll-reveal-group class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end mb-16 lg:mb-20">
+<div class="lg:col-span-7">
+<div class="flex items-center gap-3">
+<span class="h-px w-8 bg-[#ffb100]"></span>
+<span class="font-mono text-xs uppercase text-[#ffb100] tracking-widest font-bold">About StableGrid</span>
+</div>
+<h2 class="mt-3 font-headline-lg fs-h2 text-white font-bold">A needs-driven model for stronger and more resilient power grids.</h2>
+</div>
+<p class="lg:col-span-5 text-[#cbc6b9] fs-lead leading-relaxed">A scalable infrastructure model designed to strengthen Africa&rsquo;s power grids through targeted investment in distributed energy storage and solar generation.</p>
+</div>
+<p class="sg-lit" data-lit>StableGrid works with utilities and energy-sector stakeholders to identify the parts of transmission and distribution networks under <span class="sg-lit__hl">the greatest strain</span>, then deploys <span class="sg-lit__hl">targeted solar PV and battery storage</span> where they can create <span class="sg-lit__hl">the most value.</span></p>
+<ol data-scroll-reveal-group class="sg-pillars mt-20 lg:mt-24">
+<li class="sg-pillar">
+<div class="flex items-center justify-between">
+<span class="sg-pillar__icon"><span class="material-symbols-outlined text-[20px]">travel_explore</span></span>
+<span class="font-mono text-xs text-white/35">01</span>
+</div>
+<h3 class="mt-5 font-headline-sm fs-h3 text-white font-bold">Identify</h3>
+<p class="mt-2 text-sm text-[#a9a49a] leading-relaxed">Pinpoint the transmission and distribution nodes under the greatest strain.</p>
+</li>
+<li class="sg-pillar">
+<div class="flex items-center justify-between">
+<span class="sg-pillar__icon"><span class="material-symbols-outlined text-[20px]">battery_charging_full</span></span>
+<span class="font-mono text-xs text-white/35">02</span>
+</div>
+<h3 class="mt-5 font-headline-sm fs-h3 text-white font-bold">Deploy</h3>
+<p class="mt-2 text-sm text-[#a9a49a] leading-relaxed">Place solar PV and battery storage close to priority substations and demand nodes.</p>
+</li>
+<li class="sg-pillar">
+<div class="flex items-center justify-between">
+<span class="sg-pillar__icon"><span class="material-symbols-outlined text-[20px]">trending_down</span></span>
+<span class="font-mono text-xs text-white/35">03</span>
+</div>
+<h3 class="mt-5 font-headline-sm fs-h3 text-white font-bold">Deliver</h3>
+<p class="mt-2 text-sm text-[#a9a49a] leading-relaxed">Reduce technical losses, improve grid performance and defer or substitute conventional upgrades.</p>
+</li>
+<li class="sg-pillar">
+<div class="flex items-center justify-between">
+<span class="sg-pillar__icon"><span class="material-symbols-outlined text-[20px]">handshake</span></span>
+<span class="font-mono text-xs text-white/35">04</span>
+</div>
+<h3 class="mt-5 font-headline-sm fs-h3 text-white font-bold">Collaborate</h3>
+<p class="mt-2 text-sm text-[#a9a49a] leading-relaxed">Work with TSOs, distribution companies and regulators on scalable, commercially viable infrastructure.</p>
+</li>
+</ol>
+<div data-scroll-reveal class="sg-proof mt-20 lg:mt-24">
+<img class="sg-proof__img" src="assets/images/photos/substation-aerial.jpg" alt="" loading="lazy" width="1400" height="848">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center p-8 sm:p-10 lg:p-14">
+<div class="lg:col-span-5">
+<div class="font-mono text-xs uppercase tracking-widest text-[#ffb100] font-bold flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#ffb100] shadow-[0_0_8px_#ffb100]"></span>Proven at national scale</div>
+<p class="mt-4 font-headline-sm fs-h3 text-white font-semibold leading-snug">Italy&rsquo;s RTR Project with TSO Terna proved the model. Those learnings are now tailored to the African context.</p>
+</div>
+<div class="lg:col-span-7 sg-proof__stats">
+<div class="sg-proof__stat"><div class="sg-proof__num"><span data-count="330">330</span><small>MW</small></div><div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[#a3a09a]">Storage deployed</div></div>
+<div class="sg-proof__stat"><div class="sg-proof__num"><span data-count="126">126</span></div><div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[#a3a09a]">Substation sites</div></div>
+<div class="sg-proof__stat"><div class="sg-proof__num"><span data-count="2012" data-count-from="2000">2012</span></div><div class="mt-3 font-mono text-[11px] uppercase tracking-wider text-[#a3a09a]">Rollout began</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+           SECTION 03: STRATEGIC DEPLOYMENTS (BORDERLESS BLEED CARDS)
+      =========================================== -->
+<!-- ==========================================
+           SECTION 04: TECHNOLOGY ARCHITECTURE & TOPOLOGY
+      =========================================== -->
+<section class="w-full py-28 px-6 lg:px-12 max-w-[1600px] mx-auto bg-[#000000] border-t border-white/[0.08]" id="advisory"><div data-scroll-reveal-group class="flex flex-col mb-16"><div class="flex items-center gap-3"><span class="h-px w-8 bg-primary-container"></span><span class="font-mono text-xs uppercase text-primary-container tracking-widest font-bold">PEOPLE &amp; GOVERNANCE</span></div><h2 class="mt-3 font-headline-lg fs-h2 text-white font-bold tracking-tight">Advisory Board</h2><p class="mt-3 font-body-md text-[#cbc6b9] max-w-3xl fs-lead font-light leading-relaxed">StableGrid is supported by experienced professionals across energy infrastructure, grid systems, investment, regulation and African markets.</p></div><div data-scroll-reveal-group class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-1.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-2.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-3.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-4.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-5.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-6.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-7.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+<article class="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0e0e0e] hover:border-[#ffb100]/50 transition-colors duration-300">
+<img class="absolute inset-0 w-full h-full object-cover object-top lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" src="assets/images/team/placeholder-8.jpg" alt="" loading="lazy" width="382" height="512">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent"></div>
+<span class="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 sm:px-2.5 py-1 rounded bg-black/70 backdrop-blur-md border border-white/10 text-[#ffb100] font-mono text-[10px] uppercase tracking-wider font-semibold">Placeholder</span>
+<div class="absolute inset-x-0 bottom-0 p-4 sm:p-6">
+<span class="block h-px w-8 bg-[#ffb100] mb-4 transition-all duration-500 group-hover:w-16"></span>
+<h3 class="font-headline-sm fs-h3 text-white font-bold">[Name]</h3>
+<p class="mt-1.5 font-mono text-[10px] sm:text-xs uppercase tracking-wider text-[#ffd698]">[Role / market]</p>
+</div>
+</article>
+</div>
+</section><section class="relative w-full py-28 bg-[#050505] border-t border-white/[0.08] overflow-hidden" id="technology">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,177,0,0.09),transparent_60%)] pointer-events-none"></div>
+<div class="relative px-6 lg:px-12 max-w-[1600px] mx-auto">
+<div data-scroll-reveal-group class="flex flex-col mb-16">
+<div class="flex items-center gap-3">
+<span class="h-px w-8 bg-[#ffb100]"></span>
+<span class="font-mono text-xs uppercase text-[#ffb100] tracking-widest font-bold">HOW IT WORKS</span>
+</div>
+<h2 class="mt-3 font-headline-lg fs-h2 font-bold tracking-tight text-white">A needs-driven model for grid stabilization.</h2>
+<p class="mt-3 fs-lead max-w-3xl font-light text-[#cbc6b9] leading-relaxed">
+StableGrid uses a data and needs-driven approach to identify priority grid nodes, deploy targeted infrastructure and create scalable value across transmission and distribution networks.
+</p>
+</div>
+<div data-scroll-reveal-group class="sg-steps">
+<article class="sg-step sg-step--wide group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/rural-grid.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">analytics</span></span>
+<span class="sg-step__num" aria-hidden="true">01</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 01</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">Data &amp; Needs-Driven Approach</h3>
+<p class="sg-step__text">StableGrid begins from the perspective of the transmission and distribution network. Priority nodes are identified where the grid is under strain because of high local energy demand, distance from generation points, inadequate voltage lines or other infrastructure constraints.</p>
+<span class="sg-step__tag">Grid Diagnostics &amp; Telemetry</span>
+</div>
+</article>
+<article class="sg-step group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/battery-storage.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">bolt</span></span>
+<span class="sg-step__num" aria-hidden="true">02</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 02</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">Targeted Grid Stabilization</h3>
+<p class="sg-step__text">StableGrid develops a detailed needs-driven design to stabilize priority grid nodes. Solar PV and battery storage are deployed close to identified substations and demand nodes, based on the capacities and priorities scheduled by the transmission system operator and distribution company.</p>
+<span class="sg-step__tag">Node-Level Deployment</span>
+</div>
+</article>
+<article class="sg-step group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/substation-aerial.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">trending_up</span></span>
+<span class="sg-step__num" aria-hidden="true">03</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 03</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">CAPEX &amp; OPEX Value Creation</h3>
+<p class="sg-step__text">From a transmission and distribution perspective, targeted StableGrid infrastructure can enable CAPEX deferral or substitution. Reducing technical losses can also create OPEX value while improving network performance.</p>
+<span class="sg-step__tag">Loss Reduction &amp; Deferral</span>
+</div>
+</article>
+<article class="sg-step group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/substation.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">account_balance</span></span>
+<span class="sg-step__num" aria-hidden="true">04</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 04</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">Investment Structure</h3>
+<p class="sg-step__text">StableGrid works closely with key energy-sector stakeholders including Ministries of Energy, TSOs, DistCos, National Utilities, and Regulators to structure commercially viable infrastructure investments while maintaining appropriate risk-weighted returns.</p>
+<span class="sg-step__tag">Public &amp; Private Finance</span>
+</div>
+</article>
+<article class="sg-step group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/battery-storage.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">payments</span></span>
+<span class="sg-step__num" aria-hidden="true">05</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 05</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">Cost-Reflective Pricing</h3>
+<p class="sg-step__text">StableGrid uses an open-book data-sharing approach with energy-sector stakeholders to support lowest-cost-of-service balancing, exploring electricity tariffs and grid stabilization charges.</p>
+<span class="sg-step__tag">Transparent Tariff Models</span>
+</div>
+</article>
+<article class="sg-step sg-step--wide group" tabindex="0">
+<img class="sg-step__img" src="assets/images/photos/pylons-sunset.jpg" alt="" loading="lazy">
+<div class="sg-step__shade"></div>
+<span class="sg-step__bar"></span>
+<div class="sg-step__top">
+<span class="sg-step__icon"><span class="material-symbols-outlined text-[22px]">hub</span></span>
+<span class="sg-step__num" aria-hidden="true">06</span>
+</div>
+<div class="sg-step__body">
+<span class="sg-step__kicker">Step 06</span>
+<h3 class="mt-3 font-headline-sm fs-h3 text-white font-bold">Country-Wide Scalability</h3>
+<p class="sg-step__text">StableGrid is designed to begin with key areas of grid need, scaling across additional substations and demand nodes according to utility and network priorities.</p>
+<span class="sg-step__tag">Modular Expansion</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- ==========================================
+           SECTION 05: BENCHMARKS & PROOF POINTS (LAYERED LUXURIOUS DARK)
+      =========================================== -->
+<!-- ==========================================
+           SECTION 06: ADVISORY BOARD (UNIFIED DARK TREATMENT)
+      =========================================== -->
+<!-- ==========================================
+           SECTION 07: INSTITUTIONAL ECOSYSTEM
+      =========================================== -->
+<section class="sg-eco w-full py-28 border-y border-white/[0.08] overflow-hidden" id="partners">
+<div class="px-6 lg:px-12 max-w-[1600px] mx-auto">
+<div data-scroll-reveal-group class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+<div class="flex items-center justify-center gap-3">
+<span class="h-px w-8 bg-[#ffb100]"></span>
+<span class="font-mono text-xs uppercase text-[#ffb100] tracking-widest font-bold">COLLABORATION</span>
+<span class="h-px w-8 bg-[#ffb100]"></span>
+</div>
+<h2 class="mt-3 font-headline-lg fs-h2 text-white font-bold tracking-tight">Working across the energy ecosystem.</h2>
+<p class="mt-4 font-body-md fs-lead text-[#cbc6b9] font-light leading-relaxed">StableGrid is designed around close collaboration with the organisations responsible for planning, operating, regulating and investing in national electricity infrastructure.</p>
+</div>
+<div class="sg-eco__grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] gap-5 lg:gap-0">
+<div data-scroll-reveal-group class="sg-eco__col sg-eco__col--left grid lg:grid-rows-3 gap-5">
+<div class="sg-node sg-node--left">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">account_balance</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">01</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">Ministry of Energy</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">National partnership and policy alignment for grid stabilisation.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 0.0s;"></span>
+</div>
+<div class="sg-node sg-node--left">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">electrical_services</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">02</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">National Utilities</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">Share need areas and focal nodes so value lands where the grid needs it most.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 0.4s;"></span>
+</div>
+<div class="sg-node sg-node--left">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">cable</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">03</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">Transmission System Operators</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">Set transmission priorities and the approved CAPEX plans we align with.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 0.8s;"></span>
+</div>
+</div>
+<div data-scroll-reveal class="sg-eco__hubcol sm:col-span-2 lg:col-span-1 order-first lg:order-none py-6 lg:py-0 lg:px-10 relative">
+<div class="sg-hub" aria-hidden="true">
+<span class="sg-hub__ring sg-hub__ring--1"></span>
+<span class="sg-hub__ring sg-hub__ring--2"></span>
+<span class="sg-hub__ring sg-hub__ring--3"></span>
+<div class="sg-hub__core"><img src="assets/images/logos/SG_COMPACT_yellow.svg" alt="" width="1464" height="512"></div>
+</div>
+<div class="sg-hub__tags mt-6 flex flex-wrap justify-center gap-2">
+<span class="px-3 py-1 rounded-full border border-[#ffb100]/30 bg-black/60 font-mono text-[10px] uppercase tracking-widest text-[#ffd698]">Developer</span>
+<span class="px-3 py-1 rounded-full border border-[#ffb100]/30 bg-black/60 font-mono text-[10px] uppercase tracking-widest text-[#ffd698]">Financier</span>
+<span class="px-3 py-1 rounded-full border border-[#ffb100]/30 bg-black/60 font-mono text-[10px] uppercase tracking-widest text-[#ffd698]">Operator</span>
+</div>
+</div>
+<div data-scroll-reveal-group class="sg-eco__col sg-eco__col--right grid lg:grid-rows-3 gap-5">
+<div class="sg-node sg-node--right">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">hub</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">04</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">Distribution Companies</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">Direct the Strategic Nodes where technical losses are highest.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 1.2s;"></span>
+</div>
+<div class="sg-node sg-node--right">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">gavel</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">05</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">Regulators</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">Shape cost-reflective pricing, from the tariff to grid stabilisation charges.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 1.6s;"></span>
+</div>
+<div class="sg-node sg-node--right">
+<div class="sg-node__card">
+<div class="flex items-start justify-between gap-4">
+<span class="sg-node__icon"><span class="material-symbols-outlined text-[20px]">payments</span></span>
+<span class="font-mono text-[11px] text-white/30 tracking-widest">06</span>
+</div>
+<h3 class="mt-4 font-headline-sm fs-h3 text-white font-bold">Financial Partners</h3>
+<p class="mt-1.5 font-body-sm text-sm text-[#a9a49a] leading-relaxed font-light">Fund deployment at scale with adequate risk-weighted returns.</p>
+<span class="mt-4 inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-white/35"><span class="w-1 h-1 rounded-full bg-white/35"></span>Partner logo pending</span>
+</div>
+<span class="sg-node__wire" style="--d: 2.0s;"></span>
+</div>
+</div>
+</div>
+<p data-scroll-reveal class="mt-16 text-center font-body-sm text-sm text-color-muted max-w-3xl mx-auto font-light leading-relaxed">StableGrid brings together grid and storage expertise, financial partners, local market knowledge and public-sector collaboration to support project development, financing, deployment and long-term operation, as the turnkey project developer, financier and operator.</p>
+</div>
+</section>
+<!-- ==========================================
+           SECTION 08: CONTACT & FEEDER INTAKE (POLISHED DARK SURFACES)
+      =========================================== -->
+<section class="w-full py-28 px-6 lg:px-12 max-w-[1600px] mx-auto bg-[#000000]" id="contact">
+<div class="grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.95)]">
+<div class="lg:col-span-5 bg-gradient-to-br from-[#121008] via-[#0b0b0b] to-[#050505] p-8 lg:p-14 border-b lg:border-b-0 lg:border-r border-white/[0.08] flex flex-col justify-between">
+<div data-scroll-reveal-group class="space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-container/10 border border-primary-container/30 text-primary-container font-mono text-xs uppercase tracking-widest font-bold">
+CONTACT
+</div>
+<h2 class="font-headline-lg fs-h2 text-white font-bold leading-tight">Start a conversation<br>with StableGrid.</h2>
+<p class="font-body-md text-[#cbc6b9] text-base leading-relaxed font-light">
+For project discussions, utility engagement, government collaboration, investment enquiries or strategic partnerships, contact the StableGrid team.
+</p>
+</div>
+<div data-scroll-reveal-group class="pt-10 space-y-6 border-t border-white/[0.08] mt-8"><div class="flex items-start gap-4"><span class="material-symbols-outlined text-primary-container text-[22px] mt-0.5">mail</span><div><div class="font-mono text-xs text-color-muted uppercase">Email</div><div class="font-mono text-sm text-white">[Email]</div></div></div><div class="flex items-start gap-4"><span class="material-symbols-outlined text-primary-container text-[22px] mt-0.5">call</span><div><div class="font-mono text-xs text-color-muted uppercase">Telephone</div><div class="font-mono text-sm text-white">[Telephone]</div></div></div><div class="flex items-start gap-4"><span class="material-symbols-outlined text-primary-container text-[22px] mt-0.5">location_on</span><div><div class="font-mono text-xs text-color-muted uppercase">Target markets</div><div class="font-mono text-sm text-white">Uganda &middot; Zambia &middot; Kenya</div></div></div><div class="flex items-start gap-4"><span class="material-symbols-outlined text-primary-container text-[22px] mt-0.5">language</span><div><div class="font-mono text-xs text-color-muted uppercase">Website</div><div class="font-mono text-sm text-white">[Website]</div></div></div></div>
+</div>
+<div class="lg:col-span-7 bg-[#0e0e0e] p-8 lg:p-14 flex flex-col justify-center">
+<div data-scroll-reveal-group class="mb-8">
+<span class="font-mono text-xs uppercase text-primary-container tracking-widest font-bold">ENGAGEMENT FORM</span>
+<h3 class="font-headline-sm fs-h2s text-white font-bold mt-1">Send an Enquiry</h3>
+<p class="font-body-sm text-sm text-color-muted mt-2 font-light">
+Submit your details and areas of interest. The StableGrid team will respond promptly.
+</p>
+</div>
+<form data-scroll-reveal class="space-y-5" id="feeder-intake-form" onsubmit="event.preventDefault(); showConfirmation();">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Full Name</label>
+<input class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm" placeholder="Your name" required="" type="text">
+</div>
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Company / Organisation</label>
+<input class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm" placeholder="Organisation name" required="" type="text">
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Work Email</label>
+<input class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm" placeholder="name@organisation.com" required="" type="email">
+</div>
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Phone Number</label>
+<input class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm" placeholder="+XXX XXXXXXXXX" type="tel">
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Country / Market</label>
+<input class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm" placeholder="e.g. Uganda, Zambia, Kenya" type="text">
+</div>
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Enquiry Type</label>
+<select class="w-full h-12 px-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white outline-none focus:border-primary-container transition-all font-body-sm">
+<option value="utility">Utility / TSO / DistCo</option>
+<option value="government">Government / Regulator</option>
+<option value="project">Project Partnership</option>
+<option value="investment">Investment / Finance</option>
+<option value="technology">Technology Partnership</option>
+<option value="general">General Enquiry</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block font-mono text-xs uppercase tracking-wider text-color-muted mb-2 font-medium">Message</label>
+<textarea class="w-full p-4 rounded-lg bg-[#050505] border border-white/[0.08] text-white placeholder-white/20 outline-none focus:border-primary-container transition-all font-body-sm resize-none" placeholder="Share details about your network, project or enquiry..." rows="4"></textarea>
+</div>
+<div class="pt-2 flex items-center justify-between flex-wrap gap-4">
+<button class="sg-btn sg-btn--primary" type="submit"><span class="sg-btn__label">Send Enquiry</span><span class="sg-btn__orb" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-bolt"></use></svg></span></button>
+<span class="font-mono text-xs text-color-muted">DISPATCH CONFIRMATION &lt; 24H</span>
+</div>
+<div class="hidden p-4 rounded-lg bg-primary-container/10 border border-primary-container/30 text-primary font-mono text-xs uppercase tracking-wider" id="form-success">
+Enquiry submitted successfully. The StableGrid team will contact you shortly.
+</div>
+</form>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- ==========================================
+       FOOTER
+  =========================================== -->
+<footer class="sg-foot">
+<div class="px-6 lg:px-12 max-w-[1600px] mx-auto pt-20 lg:pt-28">
+<div data-scroll-reveal-group class="flex flex-col sm:flex-row sm:items-end justify-between gap-10 pb-16 lg:pb-20 border-b border-white/[0.08]">
+<p class="sg-foot__statement max-w-4xl">Strengthening Africa&rsquo;s power grids <em>where they need it most.</em></p>
+<a class="sg-foot__top" href="#hero-section" aria-label="Back to top">
+<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"></use></svg>
+<span>Top</span>
+</a>
+</div>
+<div data-scroll-reveal-group class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10 py-16">
+<div class="lg:col-span-4 space-y-6">
+<img class="h-10 w-auto" src="assets/images/logos/SG_EXTENDED_yellow.svg" alt="StableGrid" width="1680" height="396" loading="lazy">
+<p class="text-sm text-[#a3a09a] leading-relaxed max-w-sm">Targeted, data-led energy infrastructure: solar PV and battery storage deployed where the grid is under the greatest strain.</p>
+<div class="font-mono text-[11px] text-white/50 uppercase tracking-widest">Energy Infrastructure &bull; Grid Stabilisation</div>
+</div>
+<div class="lg:col-span-2">
+<div class="sg-foot__h">The Project</div>
+<ul class="sg-foot__links mt-5 text-sm">
+<li><a href="#about">About</a></li>
+<li><a href="#technology">How It Works</a></li>
+<li><a href="#advisory">Advisory Board</a></li>
+<li><a href="#partners">Partners</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+<div class="lg:col-span-3">
+<div class="sg-foot__h">Where we work</div>
+<ul class="mt-3 text-sm">
+<li class="sg-foot__market"><span class="text-white font-medium">Uganda</span><span class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-white/45">Target market<span class="sg-foot__dot" style="--d: 0.0s;"></span></span></li>
+<li class="sg-foot__market"><span class="text-white font-medium">Zambia</span><span class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-white/45">Target market<span class="sg-foot__dot" style="--d: 0.6s;"></span></span></li>
+<li class="sg-foot__market"><span class="text-white font-medium">Kenya</span><span class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-white/45">Target market<span class="sg-foot__dot" style="--d: 1.2s;"></span></span></li>
+</ul>
+</div>
+<div class="lg:col-span-3">
+<div class="sg-foot__h">Contact</div>
+<ul class="mt-5 space-y-3 text-sm text-[#a3a09a]">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-[#ffb100]">mail</span>[Email]</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-[18px] text-[#ffb100]">call</span>[Telephone]</li>
+<li class="flex items-start gap-3"><span class="material-symbols-outlined text-[18px] text-[#ffb100]">location_on</span>[Registered Address]</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="px-6 lg:px-12 max-w-[1600px] mx-auto" aria-hidden="true">
+<img class="sg-foot__mark" src="assets/images/logos/SG_EXTENDED_yellow.svg" alt="" width="1680" height="396" loading="lazy">
+</div>
+<div class="border-t border-white/[0.08]">
+<div class="px-6 lg:px-12 max-w-[1600px] mx-auto py-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-wider text-white/45">
+<span>&copy; 2026 The StableGrid Project. All rights reserved.</span>
+<span>Uganda &middot; Zambia &middot; Kenya</span>
+</div>
+</div>
+</footer>
+<script>
+    function showConfirmation() {
+      const banner = document.getElementById('form-success');
+      if (banner) {
+        banner.classList.remove('hidden');
+        setTimeout(() => {
+          banner.classList.add('hidden');
+        }, 6000);
+      }
+    }
+
+    // Interactive Animated Grid Circuit & Flow Canvas
+    (function initGridFlow() {
+      const canvas = document.getElementById('gridCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function resize() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // Strategic Grid Nodes across the hero banner
+      const nodes = [
+        { x: 0.12, y: 0.22, baseR: 4, pulse: 0, label: 'SUB-01' },
+        { x: 0.28, y: 0.48, baseR: 5, pulse: 1.2, label: 'BESS-TX' },
+        { x: 0.52, y: 0.28, baseR: 4.5, pulse: 2.4, label: 'INTER-03' },
+        { x: 0.72, y: 0.58, baseR: 6, pulse: 0.8, label: 'SYNC-HUB' },
+        { x: 0.88, y: 0.35, baseR: 4, pulse: 1.8, label: 'FEEDER-09' },
+        { x: 0.64, y: 0.18, baseR: 3.5, pulse: 2.9, label: 'PV-SOLAR' },
+        { x: 0.38, y: 0.78, baseR: 4, pulse: 0.5, label: 'LOAD-MINING' }
+      ];
+
+      // Connections between strategic nodes
+      const links = [
+        [0, 1], [1, 2], [2, 3], [3, 4], [2, 5], [1, 6], [6, 3]
+      ];
+
+      // Energy transmission pulses traveling along grid conduits
+      const pulses = [
+        { linkIdx: 0, t: 0.1, speed: 0.0035 },
+        { linkIdx: 1, t: 0.6, speed: 0.004 },
+        { linkIdx: 2, t: 0.3, speed: 0.003 },
+        { linkIdx: 3, t: 0.75, speed: 0.0045 },
+        { linkIdx: 4, t: 0.4, speed: 0.0032 },
+        { linkIdx: 5, t: 0.85, speed: 0.0038 },
+        { linkIdx: 6, t: 0.2, speed: 0.0028 }
+      ];
+
+      function animate() {
+        if (!prefersReducedMotion) {
+          ctx.clearRect(0, 0, width, height);
+
+          // Draw interconnecting power lines
+          links.forEach(([i, j]) => {
+            const n1 = nodes[i];
+            const n2 = nodes[j];
+            const x1 = n1.x * width;
+            const y1 = n1.y * height;
+            const x2 = n2.x * width;
+            const y2 = n2.y * height;
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = 'rgba(255, 177, 0, 0.15)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Circuit dash overlay
+            ctx.beginPath();
+            ctx.setLineDash([4, 12]);
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = 'rgba(255, 214, 152, 0.25)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.setLineDash([]);
+          });
+
+          // Draw moving energy pulses
+          pulses.forEach(p => {
+            p.t += p.speed;
+            if (p.t > 1) p.t = 0;
+
+            const [i, j] = links[p.linkIdx];
+            const x1 = nodes[i].x * width;
+            const y1 = nodes[i].y * height;
+            const x2 = nodes[j].x * width;
+            const y2 = nodes[j].y * height;
+
+            const curX = x1 + (x2 - x1) * p.t;
+            const curY = y1 + (y2 - y1) * p.t;
+
+            // Outer glow
+            const grad = ctx.createRadialGradient(curX, curY, 0, curX, curY, 14);
+            grad.addColorStop(0, 'rgba(255, 177, 0, 0.9)');
+            grad.addColorStop(0.4, 'rgba(255, 177, 0, 0.35)');
+            grad.addColorStop(1, 'rgba(255, 177, 0, 0)');
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(curX, curY, 14, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Bright core
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(curX, curY, 2, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // Draw substation / BESS nodes
+          nodes.forEach(n => {
+            const nx = n.x * width;
+            const ny = n.y * height;
+            n.pulse += 0.025;
+            const currentR = n.baseR + Math.sin(n.pulse) * 1.5;
+
+            // Halo pulse
+            ctx.beginPath();
+            ctx.arc(nx, ny, currentR * 3, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 177, 0, ${0.08 + Math.sin(n.pulse) * 0.05})`;
+            ctx.fill();
+
+            // Outer ring
+            ctx.beginPath();
+            ctx.arc(nx, ny, currentR + 2, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 177, 0, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Core
+            ctx.beginPath();
+            ctx.arc(nx, ny, currentR, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffb100';
+            ctx.fill();
+          });
+        }
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    })();
+
+    // Subtle, high-performance parallax scroll synchronization
+    (function initParallax() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const mediaWrapper = document.getElementById('hero-media-wrapper');
+      const heroContent = document.getElementById('hero-content');
+      const heroSection = document.getElementById('hero-section');
+      if (!mediaWrapper || !heroContent || !heroSection) return;
+
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight;
+
+            if (scrolled <= heroHeight) {
+              mediaWrapper.style.transform = `translate3d(0, ${scrolled * 0.32}px, 0)`;
+              heroContent.style.transform = `translate3d(0, ${scrolled * 0.14}px, 0)`;
+              heroContent.style.opacity = `${1 - (scrolled / heroHeight) * 0.75}`;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+  </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
+<div class="sg-fontswitch" role="group" aria-label="Font version">
+<span class="sg-fontswitch__label">Font</span>
+<span class="sg-fontswitch__buttons"></span>
+<span class="sg-fontswitch__name"></span>
+<span class="sg-fontswitch__sep"></span>
+<span class="sg-fontswitch__label">Loader</span>
+<a href="?loader=1" data-loader-set="1">L1</a>
+<a href="?loader=2" data-loader-set="2">L2</a>
+<a href="?loader=3" data-loader-set="3">L3</a>
+<a href="?loader=0" data-loader-set="0">Off</a>
+</div>
+<script src="assets/js/font-switcher.js"></script>
+<script src="assets/js/africa-map.js"></script>
+<script src="assets/js/reveal-lenis.js"></script>
+<script src="assets/js/site.js"></script>
+</body></html>

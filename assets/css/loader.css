@@ -1,0 +1,232 @@
+/* ---------- Page loader (3 versions: html[data-loader="1|2|3"]) ----------
+   assets/js/loader.js drives --p (0 → 1) from real page-load progress and adds
+   .is-done to play the exit. While html.is-loading is set, scrolling is locked
+   and the hero's own entrance animations wait. */
+html.is-loading { overflow: hidden; }
+html.is-loading [data-hero-reveal],
+html.is-loading .sg-map__country { animation-play-state: paused; }
+
+.sg-loader {
+  --p: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(ellipse 50% 40% at 50% 55%, rgba(255, 177, 0, 0.10), transparent 70%),
+    #030303;
+  color: #ffb100;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+.sg-loader__v { display: none; }
+html[data-loader="1"] .sg-loader__v1,
+html[data-loader="2"] .sg-loader__v2,
+html[data-loader="3"] .sg-loader__v3 { display: flex; }
+
+.sg-loader__label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* =====================================================================
+   V1 Assemble: mark pieces fly in and lock together, wordmark rises,
+   progress bar fills. Exit: whole screen slides up.
+   ===================================================================== */
+.sg-loader__v1 { flex-direction: column; align-items: center; gap: 28px; }
+.sg-l1__logo { display: flex; align-items: center; gap: 22px; }
+.sg-l1__mark { width: 88px; height: 88px; overflow: visible; }
+.sg-l1__piece {
+  fill: #ffb100;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(0.6);
+  animation: sg-l1-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 90ms + 150ms);
+}
+@keyframes sg-l1-in {
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
+}
+.sg-l1__word {
+  width: 190px;
+  height: auto;
+  fill: #ffb100;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: sg-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.85s forwards;
+}
+.sg-l1__bar {
+  position: relative;
+  width: 260px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  border-radius: 2px;
+}
+.sg-l1__bar span {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform: scaleX(var(--p));
+  background: linear-gradient(90deg, #ff8a00, #ffb100, #ffd698);
+  box-shadow: 0 0 12px #ffb100;
+}
+.sg-l1__meta { width: 260px; display: flex; justify-content: space-between; }
+.sg-l1__pct { font-size: 11px; color: #ffd698; letter-spacing: 0.12em; }
+@keyframes sg-rise { to { opacity: 1; transform: none; } }
+
+html[data-loader="1"] .sg-loader { transition: transform 0.9s cubic-bezier(0.8, 0, 0.2, 1) 0.15s; }
+html[data-loader="1"] .sg-loader.is-done { transform: translateY(-100%); }
+html[data-loader="1"] .sg-loader.is-done .sg-loader__v1 {
+  transition: opacity 0.35s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(-30px) scale(0.96);
+}
+/* amber edge along the bottom of the sliding panel */
+html[data-loader="1"] .sg-loader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffb100, transparent);
+  box-shadow: 0 0 20px #ffb100;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+html[data-loader="1"] .sg-loader.is-done::after { opacity: 1; }
+
+/* =====================================================================
+   V2 Grid charge: outline mark draws, big counter, energy line charges
+   across the screen. Exit: screen splits open along the line.
+   ===================================================================== */
+html[data-loader="2"] .sg-loader { background: transparent; }
+.sg-loader__v2 { position: absolute; inset: 0; }
+.sg-l2__half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #030303;
+  transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1) 0.2s;
+}
+.sg-l2__half--top {
+  top: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(255, 177, 0, 0.12), transparent 70%),
+    #030303;
+}
+.sg-l2__half--bottom {
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 0%, rgba(255, 177, 0, 0.12), transparent 70%),
+    #030303;
+}
+.sg-l2__head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.sg-l2__mark { width: 56px; height: 56px; overflow: visible; }
+.sg-l2__mark path {
+  fill: transparent;
+  stroke: #ffb100;
+  stroke-width: 10;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sg-l2-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards, sg-l2-fill 0.6s ease 1.3s forwards;
+}
+@keyframes sg-l2-draw { to { stroke-dashoffset: 0; } }
+@keyframes sg-l2-fill { to { fill: #ffb100; } }
+.sg-l2__count {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: clamp(64px, 12vw, 160px);
+  line-height: 0.85;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.sg-l2__count small { font-size: 0.3em; color: #ffb100; margin-left: 4px; }
+.sg-l2__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+}
+.sg-l2__line span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: calc(var(--p) * 100%);
+  background: linear-gradient(90deg, transparent, #ffb100 30%, #ffd698);
+  box-shadow: 0 0 14px #ffb100;
+}
+.sg-l2__line span::after {
+  /* glowing head */
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 16px 4px #ffb100;
+}
+.sg-l2__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(24px, 4vw, 48px);
+}
+.sg-loader.is-done .sg-l2__half--top { transform: translateY(-100%); }
+.sg-loader.is-done .sg-l2__half--bottom { transform: translateY(100%); }
+.sg-loader.is-done .sg-l2__line { transition: opacity 0.3s ease 0.15s; opacity: 0; }
+
+/* =====================================================================
+   V3 Power fill: outlined mark fills with rising amber "liquid" (wave on
+   top) in step with progress. Exit: circular wipe collapses into the logo.
+   ===================================================================== */
+.sg-loader__v3 { flex-direction: column; align-items: center; gap: 26px; }
+.sg-l3__mark { width: 128px; height: 128px; overflow: visible; }
+.sg-l3__outline path { fill: rgba(255, 177, 0, 0.05); stroke: rgba(255, 177, 0, 0.55); stroke-width: 4; }
+.sg-l3__level {
+  transform: translateY(calc((1 - var(--p)) * 560px));
+}
+.sg-l3__wave { animation: sg-l3-wave 1.6s linear infinite; }
+@keyframes sg-l3-wave { to { transform: translateX(-260px); } }
+.sg-l3__fill { fill: #ffb100; }
+.sg-l3__word { width: 210px; height: auto; fill: #fff; opacity: 0.9; }
+.sg-l3__pct {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #ffd698;
+}
+
+html[data-loader="3"] .sg-loader {
+  clip-path: circle(150% at 50% 45%);
+  transition: clip-path 1s cubic-bezier(0.8, 0, 0.2, 1) 0.1s;
+}
+html[data-loader="3"] .sg-loader.is-done { clip-path: circle(0% at 50% 45%); }
+html[data-loader="3"] .sg-loader.is-done .sg-loader__v3 { transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1); transform: scale(0.8); }
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-l1__piece, .sg-l1__word, .sg-l2__mark path, .sg-l3__wave { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
+}

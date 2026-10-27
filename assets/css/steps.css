@@ -1,0 +1,214 @@
+/* ---------- How It Works: full-bleed photo step cards (bento grid) ---------- */
+/* Registered so the text fade (mask stop) can animate smoothly. */
+@property --sg-fade {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 45%;
+}
+.sg-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 640px) {
+  .sg-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1280px) {
+  /* Row 1: wide + 2, row 2: 2 + wide */
+  /* Fixed row height: hovering a card must never resize the row and shift the page */
+  .sg-steps { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 520px; gap: 24px; }
+  .sg-step--wide { grid-column: span 2; }
+}
+
+.sg-step {
+  position: relative;
+  isolation: isolate;
+  min-height: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0b0b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.sg-step:hover {
+  border-color: rgba(255, 177, 0, 0.5);
+  box-shadow: 0 30px 80px -30px rgba(255, 177, 0, 0.35);
+}
+
+/* Photo + shading */
+.sg-step__img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  filter: saturate(0.85) brightness(0.85);
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.6s ease;
+}
+.sg-step:hover .sg-step__img {
+  transform: scale(1.08);
+  filter: saturate(1.05) brightness(0.7);
+}
+.sg-step__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.05) 28%, rgba(0, 0, 0, 0.55) 52%, rgba(0, 0, 0, 0.96) 100%);
+}
+.sg-step__shade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(255, 177, 0, 0.22), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.sg-step:hover .sg-step__shade::after { opacity: 1; }
+
+/* Orange progress line along the top edge */
+.sg-step__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, #ffb100, #ffd698);
+  box-shadow: 0 0 12px rgba(255, 177, 0, 0.8);
+  transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-step:hover .sg-step__bar { width: 100%; }
+
+/* Top row: icon + outlined step number */
+.sg-step__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 0 28px;
+}
+.sg-step__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: #ffb100;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.sg-step:hover .sg-step__icon { background: #ffb100; color: #000; border-color: #ffb100; }
+.sg-step__num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 6vw, 104px);
+  line-height: 0.8;
+  letter-spacing: 0;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 177, 0, 0.75);
+  transition: color 0.4s ease;
+}
+.sg-step:hover .sg-step__num { color: rgba(255, 177, 0, 0.9); }
+
+/* Bottom copy */
+.sg-step__body { padding: 24px 28px 28px; }
+.sg-step--wide .sg-step__body { max-width: 640px; }
+.sg-step__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffb100;
+}
+.sg-step__kicker::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.5s ease;
+}
+.sg-step:hover .sg-step__kicker::before { width: 48px; }
+.sg-step__text {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #d2cdc3;
+}
+.sg-step__tag {
+  margin-top: 18px;
+  padding-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.3s ease;
+}
+.sg-step__tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffb100;
+  box-shadow: 0 0 8px #ffb100;
+}
+.sg-step:hover .sg-step__tag { color: #ffd698; }
+
+/* Desktop with a mouse: show 3 lines, slide the rest open on hover.
+   The copy block is pinned to the card's bottom edge, so it grows upward over
+   the photo inside the fixed-height card instead of pushing the layout.
+   Touch / small screens always show the full text. */
+@media (hover: hover) and (min-width: 1280px) {
+  .sg-step__body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  /* site.js sets --sg-open to the text's real height, so the open animation
+     runs exactly to the end of the copy (no overshoot, no stop-start). The
+     bottom fade is driven by --sg-fade so it dissolves in step with it. */
+  .sg-step__text {
+    --sg-fade: 45%;
+    max-height: calc(1.7em * 3);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - var(--sg-fade)), transparent 100%);
+    mask-image: linear-gradient(180deg, #000 calc(100% - var(--sg-fade)), transparent 100%);
+    transition:
+      max-height 0.7s cubic-bezier(0.25, 0.8, 0.25, 1),
+      --sg-fade 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .sg-step:hover .sg-step__text,
+  .sg-step:focus-within .sg-step__text {
+    max-height: var(--sg-open, calc(1.7em * 12));
+    --sg-fade: 0%;
+  }
+  /* While the full copy is showing: darken the photo and fade the icon/number
+     row away so the text has the whole card height to grow into. */
+  .sg-step__shade { transition: background-color 0.5s ease; }
+  .sg-step:hover .sg-step__shade,
+  .sg-step:focus-within .sg-step__shade { background-color: rgba(0, 0, 0, 0.45); }
+  .sg-step__top { transition: opacity 0.35s ease, transform 0.35s ease; }
+  .sg-step:hover .sg-step__top,
+  .sg-step:focus-within .sg-step__top { opacity: 0; transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-step__img,
+  .sg-step__bar,
+  .sg-step__kicker::before { transition: none; }
+}

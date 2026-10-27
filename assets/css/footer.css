@@ -1,0 +1,154 @@
+/* ---------- Footer ---------- */
+.sg-foot {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 100%, rgba(255, 177, 0, 0.14), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 64px 64px,
+    #030303;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+/* Amber hairline across the top edge */
+.sg-foot::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffb100, transparent);
+  box-shadow: 0 0 18px rgba(255, 177, 0, 0.7);
+}
+
+/* Statement row */
+.sg-foot__statement {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3.5rem);
+  line-height: 1.12;
+  color: #fff;
+}
+.sg-foot__statement em { font-style: normal; color: #ffb100; }
+
+/* Round back-to-top button */
+.sg-foot__top {
+  position: relative;
+  flex: none;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #ffb100;
+  border: 1px solid rgba(255, 177, 0, 0.45);
+  background: rgba(255, 177, 0, 0.06);
+  transition: background 0.4s ease, color 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-foot__top::before {
+  /* rotating dashed ring */
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 177, 0, 0.35);
+  animation: sg-foot-spin 18s linear infinite;
+}
+.sg-foot__top svg { width: 26px; height: 26px; transform: rotate(-90deg); transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.sg-foot__top span {
+  position: absolute;
+  bottom: 22px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.sg-foot__top:hover { background: #ffb100; color: #000; transform: translateY(-4px); }
+.sg-foot__top:hover svg { transform: rotate(-90deg) translateX(4px); }
+@keyframes sg-foot-spin { to { transform: rotate(360deg); } }
+
+/* Column headings */
+.sg-foot__h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffb100;
+}
+.sg-foot__h::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+
+/* Links slide right and light up */
+.sg-foot__links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-foot__links a::before {
+  content: "";
+  width: 0;
+  height: 1px;
+  background: #ffb100;
+  transition: width 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-foot__links a:hover { color: #fff; }
+.sg-foot__links a:hover::before { width: 16px; }
+
+/* Target markets with pulsing dots */
+.sg-foot__market {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.sg-foot__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffb100;
+  box-shadow: 0 0 10px #ffb100;
+}
+.sg-foot__dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid #ffb100;
+  animation: sg-foot-ping 2.4s ease-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes sg-foot-ping {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Giant brand mark, fading out toward the bottom edge */
+.sg-foot__mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.12;
+  -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
+  mask-image: linear-gradient(180deg, #000 20%, transparent 95%);
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  user-select: none;
+}
+.sg-foot:hover .sg-foot__mark { opacity: 0.18; }
+
+@media (max-width: 639px) {
+  .sg-foot__top { width: 88px; height: 88px; }
+  .sg-foot__top span { bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sg-foot__top::before, .sg-foot__dot::after { animation: none; }
+}

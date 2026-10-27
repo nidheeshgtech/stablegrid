@@ -1,0 +1,251 @@
+/* ---------- Header: soft gradient at rest, glass blur once scrolled ---------- */
+.sg-header {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.45) 55%, rgba(0, 0, 0, 0) 100%);
+  border-bottom: 1px solid transparent;
+  transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease,
+    backdrop-filter 0.45s ease, -webkit-backdrop-filter 0.45s ease;
+}
+.sg-header.is-scrolled {
+  background: rgba(10, 10, 10, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px -18px rgba(0, 0, 0, 0.8);
+}
+/* Menu open: header sits on the menu's own backdrop */
+.sg-menu-open .sg-header {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* ---------- Buttons ---------- */
+.sg-btn {
+  --orb: 40px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+  padding: 0 8px 0 28px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+}
+/* Fill that sweeps up from the bottom on hover */
+.sg-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(102%);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.sg-btn:hover::before,
+.sg-btn:focus-visible::before { transform: translateY(0); }
+.sg-btn:focus-visible { outline: 2px solid #ffd698; outline-offset: 3px; }
+
+.sg-btn__label {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.sg-btn:hover .sg-btn__label { transform: translateX(4px); }
+
+.sg-btn__orb {
+  flex: none;
+  width: var(--orb);
+  height: var(--orb);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: background 0.45s ease, color 0.45s ease, transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.sg-btn__orb svg { width: 46%; height: 46%; }
+.sg-btn:hover .sg-btn__orb { transform: rotate(-12deg) scale(1.06); }
+.sg-btn:hover .sg-btn__orb svg { animation: sg-zap 0.6s ease 0.1s; }
+
+@keyframes sg-zap {
+  0%   { transform: scale(1); opacity: 1; }
+  25%  { transform: scale(1.35) rotate(-10deg); opacity: 0.6; }
+  45%  { transform: scale(0.9); opacity: 1; }
+  65%  { transform: scale(1.15); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Primary: amber -> black with amber text */
+.sg-btn--primary {
+  background: #ffb100;
+  color: #000;
+  box-shadow: 0 0 32px -6px rgba(255, 177, 0, 0.55);
+}
+.sg-btn--primary::before { background: #0b0b0b; }
+.sg-btn--primary:hover {
+  color: #ffb100;
+  box-shadow: inset 0 0 0 1px #ffb100, 0 0 44px -6px rgba(255, 177, 0, 0.6);
+}
+.sg-btn--primary .sg-btn__orb { background: #000; color: #ffb100; }
+.sg-btn--primary:hover .sg-btn__orb { background: #ffb100; color: #000; }
+
+/* Ghost: glass -> warm tint with amber border */
+.sg-btn--ghost {
+  color: #fff;
+  background: rgba(17, 17, 17, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.sg-btn--ghost::before { background: linear-gradient(180deg, rgba(255, 177, 0, 0.18), rgba(255, 177, 0, 0.06)); }
+.sg-btn--ghost:hover { color: #ffd698; border-color: rgba(255, 177, 0, 0.7); box-shadow: 0 0 30px -8px rgba(255, 177, 0, 0.5); }
+.sg-btn--ghost .sg-btn__orb { background: rgba(255, 255, 255, 0.08); color: #ffb100; }
+.sg-btn--ghost:hover .sg-btn__orb { background: #ffb100; color: #000; }
+
+.sg-btn--sm { --orb: 32px; height: 46px; padding-left: 20px; gap: 12px; font-size: 11px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-btn::before, .sg-btn__label, .sg-btn__orb { transition: none; }
+  .sg-btn:hover .sg-btn__orb svg { animation: none; }
+}
+
+/* ---------- Mobile menu toggle: two bars morph into an X ---------- */
+.sg-burger {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.sg-burger:hover,
+.sg-burger[aria-expanded="true"] { border-color: rgba(255, 177, 0, 0.7); background: rgba(255, 177, 0, 0.1); }
+.sg-burger__bar {
+  position: absolute;
+  left: 13px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1), width 0.45s cubic-bezier(0.7, 0, 0.2, 1), top 0.45s cubic-bezier(0.7, 0, 0.2, 1), background 0.3s ease;
+}
+.sg-burger__bar:nth-child(1) { top: 17px; width: 18px; }
+.sg-burger__bar:nth-child(2) { top: 25px; width: 12px; background: #ffb100; }
+.sg-burger:hover .sg-burger__bar:nth-child(2) { width: 18px; }
+.sg-burger[aria-expanded="true"] .sg-burger__bar { top: 21px; width: 18px; background: #ffb100; }
+.sg-burger[aria-expanded="true"] .sg-burger__bar:nth-child(1) { transform: rotate(45deg); }
+.sg-burger[aria-expanded="true"] .sg-burger__bar:nth-child(2) { transform: rotate(-45deg); }
+
+/* ---------- Full-screen mobile menu ---------- */
+.sg-mnav {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 100% 0%, rgba(255, 177, 0, 0.16), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 44px 44px,
+    #050505;
+  clip-path: circle(0 at calc(100% - 47px) 40px);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s linear 0.7s;
+}
+.sg-mnav.is-open {
+  visibility: visible;
+  clip-path: circle(150% at calc(100% - 47px) 40px);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s;
+}
+.sg-mnav__inner {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 104px 24px 32px;
+}
+.sg-mnav__kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffb100;
+}
+.sg-mnav__list { margin-top: 18px; }
+.sg-mnav__list li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-mnav.is-open .sg-mnav__list li { opacity: 1; transform: none; }
+.sg-mnav.is-open .sg-mnav__list li:nth-child(1) { transition-delay: 0.25s; }
+.sg-mnav.is-open .sg-mnav__list li:nth-child(2) { transition-delay: 0.31s; }
+.sg-mnav.is-open .sg-mnav__list li:nth-child(3) { transition-delay: 0.37s; }
+.sg-mnav.is-open .sg-mnav__list li:nth-child(4) { transition-delay: 0.43s; }
+.sg-mnav.is-open .sg-mnav__list li:nth-child(5) { transition-delay: 0.49s; }
+.sg-mnav__list a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 18px 0;
+  color: #fff;
+}
+.sg-mnav__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 177, 0, 0.8);
+}
+.sg-mnav__text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.3rem + 2.4vw, 2.5rem);
+  line-height: 1.1;
+  transition: color 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sg-mnav__list a:hover .sg-mnav__text,
+.sg-mnav__list a:focus-visible .sg-mnav__text { color: #ffb100; transform: translateX(8px); }
+.sg-mnav__foot {
+  margin-top: auto;
+  padding-top: 40px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease 0.55s, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.55s;
+}
+.sg-mnav.is-open .sg-mnav__foot { opacity: 1; transform: none; }
+.sg-mnav__meta {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.sg-mnav__meta strong { color: #ffd698; font-weight: 500; }
+
+html.sg-menu-open { overflow: hidden; }
+.sg-menu-open .sg-fontswitch { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-mnav, .sg-mnav.is-open { transition: none; }
+  .sg-mnav__list li, .sg-mnav__foot { transition: none; }
+}
+
+/* Hero: its parallax media layer is taller than the section, so with
+   overflow:hidden the section itself became scrollable (focus/scrollIntoView
+   could shift every layer up). overflow:clip clips the same way but can't scroll. */
+#hero-section { overflow: clip; }

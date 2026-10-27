@@ -1,0 +1,132 @@
+/* ---------- Hero Africa map: target markets ---------- */
+.sg-map {
+  --sg-orange: #ffb100;
+  --sg-orange-light: #ffd698;
+}
+
+.sg-map__country {
+  fill: rgba(8, 8, 8, 0.85);
+  stroke: var(--sg-orange);
+  stroke-opacity: 0.5;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  transition: fill 0.3s ease, opacity 0.3s ease;
+}
+
+.sg-map__country--target {
+  fill: var(--sg-orange);
+  stroke: var(--sg-orange-light);
+  stroke-opacity: 1;
+  cursor: pointer;
+  outline: none;
+  filter: drop-shadow(0 0 10px rgba(255, 177, 0, 0.45));
+}
+.sg-map__country--target:hover,
+.sg-map__country--target:focus-visible,
+.sg-map__country--target.is-active {
+  fill: var(--sg-orange-light);
+}
+.sg-map.is-focused .sg-map__country--target:not(.is-active) {
+  opacity: 0.45;
+}
+
+/* Pulsing marker on each target country */
+.sg-map__marker {
+  fill: #fff;
+  stroke: var(--sg-orange);
+  stroke-width: 3;
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sg-map-pulse 2.4s ease-in-out infinite;
+}
+.sg-map__marker[data-country="Kenya"] { animation-delay: 0.8s; }
+.sg-map__marker[data-country="Zambia"] { animation-delay: 1.6s; }
+
+@keyframes sg-map-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.6; }
+}
+
+/* Borders draw in on load (paths use pathLength="1"), then targets fill */
+.js .sg-map__country {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sg-map-draw 2.2s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards;
+}
+.js .sg-map__country--target {
+  animation:
+    sg-map-draw 2.2s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards,
+    sg-map-fill 0.8s ease 1.8s both;
+}
+
+@keyframes sg-map-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes sg-map-fill {
+  from { fill: rgba(8, 8, 8, 0.85); }
+}
+
+/* Tooltip */
+.sg-map__tip {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 177, 0, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, calc(-100% - 16px));
+  pointer-events: none;
+  white-space: nowrap;
+}
+.sg-map__tip[hidden] { display: none; }
+.sg-map__tip-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sg-orange);
+}
+.sg-map__tip-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Country chips under the map */
+.sg-map__chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 177, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.sg-map__chip:hover,
+.sg-map__chip:focus-visible,
+.sg-map__chip.is-active {
+  background: var(--sg-orange);
+  border-color: var(--sg-orange);
+  color: #000;
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .sg-map__country,
+  .js .sg-map__country--target,
+  .sg-map__marker {
+    animation: none;
+    stroke-dasharray: none;
+  }
+}

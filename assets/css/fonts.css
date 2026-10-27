@@ -1,0 +1,167 @@
+/* ---------- Font versions ----------
+   <html data-font="v1".."v7"> picks the set (registry + loader in the <head>
+   script, switcher in assets/js/font-switcher.js). Tailwind's font-* utilities
+   read these variables, so every section follows the active version.
+   Letter spacing is never negative: headings use normal tracking. */
+:root,
+:root[data-font="v1"] {
+  /* V1 Corporate clean: Inter Tight + Inter + JetBrains Mono */
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.08em;
+}
+:root[data-font="v2"] {
+  /* V2 Engineered: Archivo (semi-expanded) + IBM Plex Sans + IBM Plex Mono */
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --display-stretch: 112%;
+  --display-weight: 700;
+  --mono-tracking: 0.08em;
+}
+:root[data-font="v3"] {
+  /* V3 Premium modern: Bricolage Grotesque + DM Sans + DM Mono */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.06em;
+}
+:root[data-font="v4"] {
+  /* V4 Open Sans throughout + Roboto Mono labels */
+  --font-display: "Open Sans", system-ui, sans-serif;
+  --font-body: "Open Sans", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.06em;
+}
+:root[data-font="v5"] {
+  /* V5 Roboto throughout + Roboto Mono labels */
+  --font-display: "Roboto", system-ui, sans-serif;
+  --font-body: "Roboto", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.06em;
+}
+:root[data-font="v6"] {
+  /* V6 Google Sans throughout + Google Sans Code labels */
+  --font-display: "Google Sans", system-ui, sans-serif;
+  --font-body: "Google Sans", system-ui, sans-serif;
+  --font-mono: "Google Sans Code", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.06em;
+}
+:root[data-font="v7"] {
+  /* V7 Montserrat throughout + Roboto Mono labels */
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --display-stretch: 100%;
+  --display-weight: 700;
+  --mono-tracking: 0.06em;
+}
+
+/* ---------- Headings: normal (never negative) letter spacing ---------- */
+html .font-display-hero,
+html .font-headline-lg,
+html .font-headline-md,
+html .font-headline-sm {
+  font-stretch: var(--display-stretch);
+  letter-spacing: 0;
+}
+html .tracking-tight,
+html .tracking-tighter { letter-spacing: 0; }
+html h1, html h2, html h3 { font-weight: var(--display-weight); }
+
+/* ---------- Readability: small copy was 12–14px at weight 300 and read too thin ---------- */
+html .font-light { font-weight: 400; }
+html p.text-xs:not(.font-mono),
+html div.text-xs:not(.font-mono):not(.font-label-caps) {
+  font-size: 13px;
+  line-height: 1.7;
+}
+html p.text-sm:not(.font-mono) {
+  font-size: 15px;
+  line-height: 1.7;
+}
+html .leading-relaxed { line-height: 1.7; }
+html .text-color-muted { color: #a3a09a; }
+
+/* Mono labels: a touch larger and more open so uppercase stays legible */
+html .font-mono { letter-spacing: var(--mono-tracking); }
+html .text-\[10px\] { font-size: 11px; }
+html .text-\[11px\] { font-size: 11.5px; }
+
+/* ---------- Font switcher (review tool; remove once a version is chosen) ---------- */
+.sg-fontswitch {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.9);
+  border: 1px solid rgba(255, 177, 0, 0.35);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+}
+.sg-fontswitch__label {
+  padding: 0 8px 0 10px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.sg-fontswitch button {
+  min-width: 40px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sg-fontswitch button:hover { background: rgba(255, 255, 255, 0.08); }
+.sg-fontswitch button.is-active { background: #ffb100; color: #000; }
+.sg-fontswitch__name {
+  padding: 0 12px 0 6px;
+  font-size: 11px;
+  color: #ffd698;
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .sg-fontswitch__name { display: none; }
+}
+
+/* Loader picker (links reload the page with ?loader=N) */
+.sg-fontswitch { flex-wrap: wrap; max-width: calc(100vw - 32px); border-radius: 22px; }
+.sg-fontswitch__sep { width: 1px; height: 20px; margin: 0 4px; background: rgba(255, 255, 255, 0.14); }
+.sg-fontswitch a[data-loader-set] {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.sg-fontswitch a[data-loader-set]:hover { background: rgba(255, 255, 255, 0.08); }
+.sg-fontswitch a[data-loader-set].is-active { background: #ffb100; color: #000; }

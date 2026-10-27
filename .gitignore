@@ -1,0 +1,6 @@
+# Client brand pack, concept note and source zips (confidential, ~110MB)
+documents/
+
+# OS / tooling
+.DS_Store
+.playwright-mcp/
