@@ -13,29 +13,6 @@
 .sg-team__swiper:not(.swiper-initialized) .swiper-wrapper { display: flex; gap: 16px; overflow-x: auto; }
 .sg-team__swiper:not(.swiper-initialized) .swiper-slide { flex: 0 0 66%; }
 
-.sg-team__controls {
-  margin-top: 32px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.sg-team__progress {
-  position: relative;
-  flex: 1;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-.sg-team__progress-fill {
-  position: absolute;
-  inset: 0;
-  transform-origin: left;
-  transform: scaleX(0.25);
-  background: linear-gradient(90deg, #ff8a00, #ffb100, #ffd698);
-  box-shadow: 0 0 10px rgba(255, 177, 0, 0.8);
-  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
 .sg-team__nav { display: flex; gap: 10px; }
 .sg-team__btn {
   position: relative;
@@ -81,7 +58,6 @@
 .sg-team__btn.is-disabled { opacity: 0.3; pointer-events: none; }
 
 @media (max-width: 639px) {
-  .sg-team__controls { margin-top: 24px; gap: 16px; }
   .sg-team__btn { width: 44px; height: 44px; }
 }
 
