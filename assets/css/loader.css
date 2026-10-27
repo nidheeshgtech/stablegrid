@@ -196,6 +196,10 @@ html[data-loader="2"] .sg-loader { background: transparent; }
   justify-content: space-between;
   padding: 0 clamp(24px, 4vw, 48px);
 }
+@media (max-width: 639px) {
+  .sg-l2__foot { justify-content: center; }
+  .sg-l2__foot span:last-child { display: none; }
+}
 .sg-loader.is-done .sg-l2__half--top { transform: translateY(-100%); }
 .sg-loader.is-done .sg-l2__half--bottom { transform: translateY(100%); }
 .sg-loader.is-done .sg-l2__line { transition: opacity 0.3s ease 0.15s; opacity: 0; }
