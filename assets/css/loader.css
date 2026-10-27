@@ -234,3 +234,82 @@ html[data-loader="3"] .sg-loader.is-done .sg-loader__v3 { transition: transform 
 @media (prefers-reduced-motion: reduce) {
   .sg-l1__piece, .sg-l1__word, .sg-l2__mark path, .sg-l3__wave { animation: none; opacity: 1; transform: none; stroke-dashoffset: 0; }
 }
+
+/* =====================================================================
+   Minimal versions (L4–L6): small centre element, quiet fade-out exit.
+   ===================================================================== */
+html[data-loader="4"] .sg-loader__v4,
+html[data-loader="5"] .sg-loader__v5,
+html[data-loader="6"] .sg-loader__v6 { display: flex; }
+html[data-loader="4"] .sg-loader,
+html[data-loader="5"] .sg-loader,
+html[data-loader="6"] .sg-loader {
+  background: #030303;
+  transition: opacity 0.6s ease 0.1s, visibility 0s linear 0.7s;
+}
+html[data-loader="4"] .sg-loader.is-done,
+html[data-loader="5"] .sg-loader.is-done,
+html[data-loader="6"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
+.sg-loader.is-done .sg-loader__v4,
+.sg-loader.is-done .sg-loader__v5,
+.sg-loader.is-done .sg-loader__v6 { transform: scale(0.92); transition: transform 0.6s cubic-bezier(0.7, 0, 0.2, 1); }
+
+/* L4 Ring: mark inside a ring that fills with progress */
+.sg-loader__v4 { flex-direction: column; align-items: center; gap: 14px; }
+.sg-l4 { position: relative; width: 72px; height: 72px; display: grid; place-items: center; }
+.sg-l4__ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+.sg-l4__track, .sg-l4__arc { fill: none; stroke-width: 2.5; }
+.sg-l4__track { stroke: rgba(255, 255, 255, 0.08); }
+.sg-l4__arc {
+  stroke: #ffb100;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p));
+  filter: drop-shadow(0 0 4px rgba(255, 177, 0, 0.8));
+}
+.sg-l4__mark { width: 28px; height: 28px; fill: #ffb100; }
+.sg-l4__pct { font-size: 10px; letter-spacing: 0.18em; color: rgba(255, 214, 152, 0.8); }
+
+/* L5 Line: thin progress line across the top, breathing mark in the centre */
+.sg-loader__v5 { flex-direction: column; align-items: center; gap: 14px; }
+.sg-l5__line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: calc(var(--p) * 100%);
+  background: linear-gradient(90deg, #ff8a00, #ffb100, #ffd698);
+  box-shadow: 0 0 10px #ffb100;
+}
+.sg-l5__mark { width: 30px; height: 30px; fill: #ffb100; animation: sg-l5-breathe 1.6s ease-in-out infinite; }
+@keyframes sg-l5-breathe {
+  0%, 100% { opacity: 0.45; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* L6 Orbit: three market dots circling the mark */
+.sg-l6 { position: relative; width: 64px; height: 64px; display: grid; place-items: center; }
+.sg-l6__mark { width: 26px; height: 26px; fill: #ffb100; }
+.sg-l6__orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: sg-l6-spin 1.8s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+}
+.sg-l6__orbit:nth-child(2) { inset: 6px; animation-duration: 2.4s; animation-direction: reverse; }
+.sg-l6__orbit:nth-child(3) { inset: -6px; animation-duration: 3s; border: 1px solid rgba(255, 177, 0, 0.12); }
+.sg-l6__orbit i {
+  position: absolute;
+  top: -3px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffb100;
+  box-shadow: 0 0 8px #ffb100;
+}
+@keyframes sg-l6-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sg-l5__mark, .sg-l6__orbit { animation: none; }
+}
