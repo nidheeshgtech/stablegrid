@@ -13,7 +13,7 @@
   // minimum on-screen time and keep the element until their exit has played.
   const v = root.dataset.loader;
   const INTRO_MS = { 9: 3600, 10: 3300 };
-  const EXIT_MS = { 9: 2000, 10: 1900 };
+  const EXIT_MS = { 9: 2000, 10: 1400 };
   const MIN_MS = reduceMotion ? 300 : (INTRO_MS[v] || 2400);   // time to reach 100% at the earliest
   const MAX_MS = 8000;                        // never block longer than this
   const pctEls = el.querySelectorAll("[data-pct]");

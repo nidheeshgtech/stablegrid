@@ -394,7 +394,11 @@ html[data-loader="8"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
 html[data-loader="9"] .sg-loader__v9,
 html[data-loader="10"] .sg-loader__v10 { display: flex; }
 html[data-loader="9"] .sg-loader { background: #000; }
-html[data-loader="10"] .sg-loader { background: transparent; }
+html[data-loader="10"] .sg-loader {
+  background: #000;
+  transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.25s;
+}
+html[data-loader="10"] .sg-loader.is-done { opacity: 0; visibility: hidden; }
 
 /* L9 Blueprint: guide lines trace in from every edge and meet at the mark */
 .sg-loader__v9 { position: absolute; inset: 0; }
@@ -537,29 +541,14 @@ html[data-loader="9"] .sg-loader.is-done .sg-l9__foot {
 .sg-l10__bar { position: relative; width: 64px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
 .sg-l10__bar span { position: absolute; inset: 0; transform-origin: left; transform: scaleX(var(--p)); background: #ffb100; box-shadow: 0 0 8px #ffb100; }
 .sg-l10__pct { min-width: 30px; font-size: 10px; letter-spacing: 0.22em; color: rgba(255, 214, 152, 0.75); }
-/* L10 background: two black halves meeting at the signature's centre line.
-   Exit: letters lift away in reverse, lines flash amber, then the halves
-   split apart (top up, bottom down) with glowing seam edges. */
-html[data-loader="10"] .sg-loader::before,
-html[data-loader="10"] .sg-loader::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 50%;
-  background: #000;
-  z-index: -1;
-  transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1) 0.75s, box-shadow 0.3s ease 0.5s;
-}
-html[data-loader="10"] .sg-loader::before { top: 0; }
-html[data-loader="10"] .sg-loader::after { bottom: 0; }
-html[data-loader="10"] .sg-loader.is-done::before {
-  transform: translateY(-100%);
-  box-shadow: 0 2px 0 #ffb100, 0 6px 30px rgba(255, 177, 0, 0.6);
-}
-html[data-loader="10"] .sg-loader.is-done::after {
-  transform: translateY(100%);
-  box-shadow: 0 -2px 0 #ffb100, 0 -6px 30px rgba(255, 177, 0, 0.6);
+/* L10 exit: letters lift away in reverse and the lines flash amber while the
+   whole lockup scales up softly and blurs; the black screen dissolves and the
+   hero banner settles from zoomed-in to normal underneath. Nothing slides. */
+html[data-loader="10"] .sg-loader.is-done .sg-l10__sig {
+  transform: scale(1.18);
+  filter: blur(4px);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s, filter 0.8s ease 0.3s, opacity 0.7s ease 0.45s;
 }
 html[data-loader="10"] .sg-loader.is-done .sg-l10__letter {
   animation: sg-l10-letter-out 0.45s cubic-bezier(0.6, 0, 0.8, 0.4) forwards;
