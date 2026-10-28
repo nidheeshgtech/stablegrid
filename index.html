@@ -4,13 +4,12 @@
 <!-- Must run first: content only starts hidden when JS is running. -->
 <script>document.documentElement.classList.add('js');</script>
 <script>
-  // Page loader version under review: ?loader=1..10 (0 = off), remembered.
+  // Page loader: version 6 confirmed by the client.
   (function () {
     var root = document.documentElement;
-    var v = new URLSearchParams(location.search).get('loader');
-    try { v = v || localStorage.getItem('sg-loader'); if (v) localStorage.setItem('sg-loader', v); } catch (e) {}
-    root.dataset.loader = /^([0-9]|10)$/.test(v) ? v : '1';
-    if (root.dataset.loader !== '0') root.classList.add('is-loading');
+    try { localStorage.removeItem('sg-loader'); } catch (e) {}
+    root.dataset.loader = '6';
+    root.classList.add('is-loading');
   })();
 </script>
 <link rel="stylesheet" href="assets/css/loader.css?v=20261028-5">
@@ -33,12 +32,11 @@
     link.href = 'https://fonts.googleapis.com/css2?' + window.SG_FONT_SETS[v].css + '&display=swap';
     document.head.appendChild(link);
   };
+  // Font set V1 confirmed by the client.
   (function () {
-    var v = new URLSearchParams(location.search).get('font');
-    try { v = v || localStorage.getItem('sg-font'); } catch (e) {}
-    if (!window.SG_FONT_SETS[v]) v = 'v1';
-    document.documentElement.dataset.font = v;
-    window.SG_LOAD_FONT_SET(v);
+    try { localStorage.removeItem('sg-font'); } catch (e) {}
+    document.documentElement.dataset.font = 'v1';
+    window.SG_LOAD_FONT_SET('v1');
   })();
 </script>
 <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css">
@@ -1149,6 +1147,7 @@ Enquiry submitted successfully. The StableGrid team will contact you shortly.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+<!-- Review bar (font/loader picker) hidden: loader 6 + font V1 confirmed.
 <div class="sg-fontswitch" role="group" aria-label="Font version">
 <button class="sg-fontswitch__toggle" type="button" aria-expanded="false">Review</button>
 <span class="sg-fontswitch__label">Font</span>
@@ -1169,6 +1168,7 @@ Enquiry submitted successfully. The StableGrid team will contact you shortly.
 <a href="?loader=0" data-loader-set="0">Off</a>
 </div>
 <script src="assets/js/font-switcher.js?v=20261028-5"></script>
+-->
 <script src="assets/js/africa-map.js?v=20261028-5"></script>
 <script src="assets/js/reveal-lenis.js?v=20261028-5"></script>
 <script src="assets/js/site.js?v=20261028-5"></script>
